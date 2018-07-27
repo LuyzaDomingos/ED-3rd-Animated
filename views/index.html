@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estruturas de dados animadas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- assume a tela disponível do site seja o tamanho da tela do dispositivo.-->
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.css"/>
+    <style type="text/css">
+        .bg_primario{
+            background-color: #147c26;
+        }
+        .bg_secundario{
+            background-color: #85cc2f;
+        }
+        .bg_auxiliar{
+            background-color: #00420c;
+        }
+        .tx_primario{
+            color: #00420c;
+        }
+        .tx_secundario{
+            color: #147c26;
+        }
+        .nopadding {
+           padding: 0 !important;
+           margin: 0 !important;
+        }
+    </style>
+    <!-- JavaScript assets -->
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" defer src="/assets/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg_primario navbar-fixed-top">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">TAD's</a>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Listas
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Sequencial</a>
+                        <a class="dropdown-item" href="#">Simplesmente Encadeada</a>
+                        <a class="dropdown-item" href="#">Duplamente Encadeada</a>
+                        <a class="dropdown-item" href="#">Encadeada Circulares</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Pilhas&filas
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Pilhas</a>
+                        <a class="dropdown-item" href="#">Filas Sequencial</a>
+                        <a class="dropdown-item" href="#">Filas Dinâmica</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Árvores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Grafos</a>
+                </li>
+            </ul>
+        </nav> 
+    </header>
+
+    {% block principal %}
+    {% endblock %}
+
+    <footer class="col-lg-12 bg_primario">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 text-center">
+                <br><strong><p>&reg;Copyright 2018. Todos direitos reservados.</p></strong>
+            </div>
+            <div class="col-sm-12 col-lg-6 text-right small">
+                <strong>
+                    <p>Desenvolvedores:
+                        <br><a href="#Lattes">Leandro Gomes</a>: leandronascimento@cc.ci.ufpb.br
+                        <br><a href="#Lattes">Luyza Elle</a>: luyzadomingos@cc.ci.ufpb.br
+                        <br><a href="#Lattes">Victor Koehler</a>: victorkoehler@cc.ci.ufpb.br
+                    </p>
+                </strong>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
