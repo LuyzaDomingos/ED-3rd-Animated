@@ -1,2 +1,2 @@
 # ED-3rd-Animated
-Projeto para a nota de projeto da disciplina de Estrutura de Dados
+Projeto para a nota da disciplina de Estrutura de Dados
