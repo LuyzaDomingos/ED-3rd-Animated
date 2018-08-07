@@ -27,6 +27,25 @@
            padding: 0 !important;
            margin: 0 !important;
         }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        main {
+            flex-grow: 1;
+        }
+
+        header, main, footer {
+            flex-shrink: 0;
+            max-width: 100%;
+        }
     </style>
     <!-- JavaScript assets -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -51,13 +70,15 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Pilhas&filas
+                        Filas
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item tx_secundario" href="#">Pilhas</a>
-                        <a class="dropdown-item tx_secundario" href="#">Filas Sequencial</a>
-                        <a class="dropdown-item tx_secundario" href="#">Filas Dinâmica</a>
+                        <a class="dropdown-item tx_secundario" href="#">Sequencial</a>
+                        <a class="dropdown-item tx_secundario" href="#">Dinâmica</a>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pilhas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Árvores</a>
@@ -72,17 +93,17 @@
     {% block principal %}
     {% endblock %}
 
-    <footer class="col-lg-12 bg_primario">
-        <div class="row">
+    <footer class="bg_primario">
+        <div class="row mx-0">
             <div class="col-sm-12 col-lg-6 text-center">
                 <br><strong><p>&reg;Copyright 2018. Todos direitos reservados.</p></strong>
             </div>
-            <div class="col-sm-12 col-lg-6 text-right small">
+            <div class="col-sm-12 col-lg-6 text-right small pr-4">
                 <strong>
                     <p>Desenvolvedores:
                         <br><a class="tx_primario" href="http://lattes.cnpq.br/2683321092521435" target="blank">Leandro Gomes</a>: leandronascimento@cc.ci.ufpb.br
                         <br><a class="tx_primario" href="#Lattes" target="blank">Luyza Elle</a>: luyzadomingos@cc.ci.ufpb.br
-                        <br><a class="tx_primario" href="#Lattes" target="blank">Victor Koehler</a>: victorkoehler@cc.ci.ufpb.br
+                        <br><a class="tx_primario" href="http://lattes.cnpq.br/5516398050336349" target="blank">Victor Koehler</a>: koehlervictor@cc.ci.ufpb.br
                     </p>
                 </strong>
             </div>
