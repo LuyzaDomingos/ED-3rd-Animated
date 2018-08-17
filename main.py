@@ -18,14 +18,22 @@ class Handler(webapp2.RequestHandler):
         
 class MainHandler(Handler):
     def get(self):
-        items = range(0)
-        digi = self.request.get("digi")
-        if digi.isdigit():
-            items = range(int(digi))
-        else:
-            None
-        self.render("inicio.html", items = items)
+        # chamando a pagina e passando uma variavel chamda titulo para o arquivo em html
+        self.render("inicio.html", titulo = "Estruturas de dados animadas")
+
+class SequencialHandler(Handler):
+    def get(self):
+        self.render("listaSequencial.html", titulo = "TAD's - Lista Sequencial")
+
+class TesteHandler(Handler):
+    def get(self):
+        pass
+
+    def post (self):
+        pass    
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/listaSequencial', SequencialHandler),
+    ('/teste', TesteHandler)
 ], debug=True)

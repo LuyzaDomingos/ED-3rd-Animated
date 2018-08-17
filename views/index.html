@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Estruturas de dados animadas</title>
+    <title> {{ titulo }} </title> <!--usando uma variável no jinja2-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- assume a tela disponível do site seja o tamanho da tela do dispositivo.-->
     <meta name="viewport" content="width=device-width" />
@@ -55,14 +55,14 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg_primario navbar-fixed-top">
             <!-- Brand -->
-            <a class="navbar-brand" href="#">TAD's</a>
+            <a class="navbar-brand" href="/">TAD's</a>
             <ul class="navbar-nav text-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Listas
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item tx_secundario" href="#">Sequencial</a>
+                        <a class="dropdown-item tx_secundario" href="/listaSequencial">Sequencial</a>
                         <a class="dropdown-item tx_secundario" href="#">Simplesmente Encadeada</a>
                         <a class="dropdown-item tx_secundario" href="#">Duplamente Encadeada</a>
                         <a class="dropdown-item tx_secundario" href="#">Encadeada Circulares</a>
