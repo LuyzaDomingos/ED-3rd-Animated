@@ -8,24 +8,44 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.css"/>
     <style type="text/css">
-        .bg_primario{
+        .bg_primario {
             background-color: #0fa106;
         }
-        .bg_secundario{
+        .bg_secundario {
             background-color: #84e312;
         }
-        .bg_auxiliar{
+        .bg_auxiliar {
             background-color: #00420c;
         }
-        .tx_primario{
+        .tx_primario {
             color: #00420c;
         }
-        .tx_secundario{
+        .tx_secundario {
             color: #147c26;
         }
         .nopadding {
            padding: 0 !important;
            margin: 0 !important;
+        }
+        .caixa {
+            width: 80px;
+            height: 80px;
+            background-image: url('/assets/images/box-icon.png');
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        .caixa input {
+            margin-top: 40%;
+            text-align: center;
+            max-width: 60%;
+            background: transparent;
+        }
+        .comeco {
+            width: 80px;
+            height: 80px;
+            border-left: 60px solid #00420c;
+            border-top: 40px solid transparent;
+            border-bottom: 40px solid transparent;
         }
         html, body {
             width: 100%;
@@ -63,7 +83,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item tx_secundario" href="/listaSequencial">Sequencial</a>
-                        <a class="dropdown-item tx_secundario" href="#">Simplesmente Encadeada</a>
+                        <a class="dropdown-item tx_secundario" href="/listaSimplesmenteEncadeada">Simplesmente Encadeada</a>
                         <a class="dropdown-item tx_secundario" href="#">Duplamente Encadeada</a>
                         <a class="dropdown-item tx_secundario" href="#">Encadeada Circulares</a>
                     </div>

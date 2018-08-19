@@ -25,6 +25,10 @@ class SequencialHandler(Handler):
     def get(self):
         self.render("listaSequencial.html", titulo = "TAD's - Lista Sequencial")
 
+class Encadeada1Handler(Handler):
+    def get(self):
+        self.render("listaEncadeada1.html", titulo = "TAD's - Lista Simplesmente Encadeada")
+
 class TesteHandler(Handler):
     def get(self):
         pass
@@ -35,5 +39,6 @@ class TesteHandler(Handler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/listaSequencial', SequencialHandler),
+    ('/listaSimplesmenteEncadeada', Encadeada1Handler),
     ('/teste', TesteHandler)
 ], debug=True)

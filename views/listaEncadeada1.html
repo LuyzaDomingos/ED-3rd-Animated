@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+
+{%block principal %}
+
+<main class="text-center bg_secundario">
+	<h3 class="tx_primario">Lista Simplesmente Encadeada</h3>
+	<div id="content" class="col-12">
+		<div class="row">
+			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+				<div id="obs">
+					<p>Obs.: "dicas de como usar a aplicação"</p>
+				</div><hr>
+				<div id="atributos">
+					<h5>Detalhes</h5>
+					<label for="#tamanho">Tamanho: </label>
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
+					<label for="#cabeca">Início: </label>
+					<span id="cabeca" class="badge badge-light"> nulo </span><br>
+					<label for="#cauda">Início: </label>
+					<span id="cauda" class="badge badge-light"> nulo </span>
+				</div><hr>
+				<div id="interacao" class="col-12">
+					<h5>Interagir</h5>
+					<div class="row">
+						<div class="col-6">
+							<label>Entradas: </label>
+							<input class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
+						</div>
+						<div class="col-6">
+							<div class="caixa" title="Informe o valor da caixa">
+								<input type="text" name="valor" placeholder="valor">
+							</div>
+						</div>
+					</div><br>
+					<div class="row">
+						<div class="col-6">
+							<button type="button" class="btn btn-info" name="add">Adicionar</button>
+						</div>
+						<div class="col-6">
+							<button type="button" class="btn btn-danger" name="rmv">Remover</button>
+						</div>
+					</div>
+				</div><hr>
+			</div>
+			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
+				<h5 class="text-left">Começo</h5>
+				<div id="start" class="comeco"></div>
+			</div>
+		</div>
+	</div>
+</main>
+<!-- Código em java Script que será transferido depois para um arquivo separado.-->
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+		/*$('#btn1').click(function() {
+			$( "#teste" ).toggle( "slide" );
+			//$('#teste').slideUp(500);
+			console.log("Clicou - Funciona");
+		});
+		$('#btn2').click(function() {
+			alert("Clicou. Esse é uma exemplo de dialog.");
+		});*/
+	});
+</script>
+
+{% endblock %}
