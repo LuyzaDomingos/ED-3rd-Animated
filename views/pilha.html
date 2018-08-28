@@ -3,7 +3,7 @@
 {%block principal %}
 
 <main class="text-center bg_secundario">
-	<h3 class="tx_primario">Lista Sequencial - Luyza</h3><!--Retirar o nome quando finalizar-->
+	<h3 class="tx_primario">Pilha - Vitor</h3><!--Retirar o nome quando finalizar-->
 	<div id="content" class="col-12">
 		<div class="row">
 			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
@@ -39,7 +39,7 @@
 				</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-				<div id="start" class="comeco"></div>
+				<div id="start" class="comeco2"></div>
 			</div>
 		</div>
 	</div>
@@ -47,22 +47,8 @@
 <!-- Código em java Script que será transferido depois para um arquivo separado.-->
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#add').click(function() { //botão para adicionar caixinha de valor 
-			   // $('.text-left').css('float','right');
-				$('.comeco').append('<div class="caixa" title="Informe o valor da caixa"><input type="text" name="valor" placeholder="valor"></div>');
- 			
-		});
-		$('#rmv').click(function() {
-			alert("Clicou. Esse é uma exemplo de dialog.");
-		});
+		
 	});
 </script>
-
-<!-- div que coloca o botão de testando script ; para fazer o append();
-
-<div id="teste" style="width: 70px; height: 70px; background: pink;" class="border">
-					TEstando script
-</div>
-<!-->
 
 {% endblock %}

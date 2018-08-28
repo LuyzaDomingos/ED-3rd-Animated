@@ -41,11 +41,22 @@
             background: transparent;
         }
         .comeco {
-            width: 80px;
+            float: left;
+            width: 30px;
             height: 80px;
-            border-left: 60px solid #00420c;
+            border-left: 30px solid #00420c;
             border-top: 40px solid transparent;
             border-bottom: 40px solid transparent;
+        }
+        .comeco2 {
+            width: 80px;
+            height: 30px;
+            border-bottom: 30px solid #00420c;
+            border-right: 40px solid transparent;
+            border-left: 40px solid transparent;
+        }
+        #apresentacao {
+            padding-top: 3px;
         }
         html, body {
             width: 100%;
@@ -60,6 +71,7 @@
 
         main {
             flex-grow: 1;
+            padding-top: 60px;
         }
 
         header, main, footer {
@@ -73,7 +85,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg_primario navbar-fixed-top">
+        <nav class="navbar navbar-expand-sm navbar-dark bg_primario fixed-top">
             <!-- Brand -->
             <a class="navbar-brand" href="/">TAD's</a>
             <ul class="navbar-nav text-right">
@@ -87,7 +99,7 @@
                     </div>
                 </li>
 				<li class="nav-item">
-                    <a class="nav-link" href="/Pilhas">Pilhas</a>
+                    <a class="nav-link" href="/pilha">Pilhas</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
