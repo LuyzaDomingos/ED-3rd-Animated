@@ -24,7 +24,7 @@
 					<div class="row">
 						<div class="col-6">
 							<label>Entradas: </label>
-							<input class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
+							<input id="posicao" class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
 						</div>
 						<div class="col-6">
 							<div id="entrada" class="caixa" title="Informe o valor da caixa">
@@ -43,23 +43,104 @@
 				</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-				<div id="start" class="comeco"></div>
+				<div class="comeco"></div>
 			</div>
 		</div>
 	</div>
 </main>
 <!-- Código em java Script que será transferido depois para um arquivo separado.-->
 <script type="text/javascript">
+	var No = function(conteudo, proximo) {
+		this.conteudo = conteudo;
+		this.proximo = proximo;
+	};
+
+	var Lista = function(){
+		this.cabeca = null;
+		this.tamanho = 0;
+	}
+	Lista.prototype.getTamanho = function() {
+		return this.tamanho;
+	}
+	Lista.prototype.vazia = function() {
+		return true;
+	}
+	Lista.prototype.insere = function() {
+
+	}
+
+	var listaE = new Lista();
+	var divID = 0;
+	var raiz;
+	var destino;
+	
+	function ligaBTN(){
+		$('#add').prop('disabled', false);
+		$('#rmv').prop('disabled', false);
+	}
+
+	function desligaBTN(){
+		$('#add').prop('disabled', true);
+		$('#rmv').prop('disabled', true);
+	}
+
 	$(document).ready(function() {
+		$('.comeco').show("slow");
 		$('#add').click(function() {
-			$('#apresentacao').append('<div id="caixa'+5+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');
-			$('#caixa5').offset({top: $('#entrada').offset().top, left: $('#entrada').offset().left});
-			$('#caixa5').animate({top: $('#apresentacao div:last').offset().top-$('#entrada').offset().top+3, left: $('#apresentacao div:last').offset().left-$('#entrada').offset().left+45}, 1500);
+			if (/^\d+$/.test($('#valor').val())){//verifica se a entrada é um número.
+				desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
+				raiz = $('#entrada').offset();
+				destino = $('.comeco').last().offset();
+				destino.top = parseInt((divID*110)/$('#apresentacao').width());
+				if (destino.left-raiz.left >= $('#apresentacao').width()) {
+					destino.top++;
+					destino.left = raiz.left+76.25;
+				}
+				if ($('#posicao').val()==""){
+					$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+					$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
+					//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
+					$('#caixa'+divID).animate({top: 3+(80*destino.top), left: (destino.left-raiz.left-61)  }, 1500, function(){
+						console.log((raiz.top) +' '+ (destino.left-raiz.left));
+						$('#caixa'+divID++).css({"position": "static"});
+						$('#apresentacao').append('<div class="comeco"></div>');
+						$('.comeco').show("slow");
+						ligaBTN();
+					});
+				}else{
+					if (/^\d+$/.test($('#posicao').val())){//verifica se a entrada é um número.
+						console.log("posicao não vazia e é número");
+					}else{
+						console.log("posicao não vazia e não é número");
+					}
+				}
+			}else{
+				alert("Apenas números inteiros são permitidos.");
+			}
+			
 		});
 		$('#rmv').click(function() {
+			$('#caixa5').hide(2000);
+			$('.comeco').last().hide(2000);
+			//verifica se o tipo da entrada é um número.
+			/*
+			console.log("click");
+			if (/^\d+$/.test($('#valor').val())){
+				if ($('#posicao').val()==""){
+					console.log("posicao vazia");
+				}else{
+					if (/^\d+$/.test($('#posicao').val())){
+						console.log("posicao não vazia e é número");
+					}else{
+						console.log("posicao não vazia e não é número");
+					}
+				}
+			}else{
+				alert("Apenas números inteiros são permitidos.");
+			}
 			console.log("posição da entrada: top "+$('#entrada').offset().top +" left: "+$('#entrada').offset().left);
-			console.log("posição de start: top "+$('#start').offset().top +" left: "+$('#start').offset().left);
-			console.log("posição da úlitma div: top "+$('#apresentacao div:first').offset().top +" left: "+$('#apresentacao div:first').offset().left);
+			//console.log("posição de start: top "+$('#caixa'+divID).offset().top +" left: "+$('#caixa'+(divID-1)).offset().left);
+			console.log("posição da úlitma div: top "+$('.comeco').last().offset().top +" left: "+$('.comeco').last().offset().left);*/
 		});
 	});
 </script>
