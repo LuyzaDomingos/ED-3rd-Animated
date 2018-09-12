@@ -3,20 +3,52 @@
 {%block principal %}
 
 <main class="text-center bg_secundario">
-	<h3 class="tx_primario">Este é a página de apresentação do trabalho e da equipe.</h3>
-	<h5>Deverá ser implementada por último</h5>
-	<lu>Lista de tarefas e dicas
-		<li>Trabalhar sempre em um ramo diferente do master.</li>
-		<li>As cores devem seguir o template, se necessário exceções discutir com todos.</li>
-		<li>A principio escreveremos os comando de java script (Jquery) no mesmo arquio html, posteriormente passamos para um arquivo separado</li>
-		<li>O link para a página de lista sequencial já está funcionando.</li>
-		<li>Luyza deve fazer o link para o lattes, assim como os demais.</li>
-		<li>Qualquer outra tarefa que sergir é só escrever na sequência.</li>
-		<li><a target="about_blank" href="http://jinja.pocoo.org/docs/2.10/">tocumentação do jinja2</a></li>
-		<li>...</li>
+	<style>
+		main {
+			margin-top: 50px;
+		}
 
-		<li></li>
-	</lu>
+		.row-main {
+			display: flex;
+			width: 70%;
+			margin-left: 15%;
+		}
+		
+		.column-secundary {
+			flex: 30%;
+			padding-top: 40px;
+			padding-bottom: 30px;
+		}
+
+		.column-principal {
+			flex: 70%;
+			padding-top: 50px;
+			padding-bottom: 30px;
+		}
+
+		.column-image {
+			height: 100%;
+			background: url(/assets/images/ufpb-logo.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+	</style>
+	<h1 class="tx_primario">{{ titulo }}</h1> <!-- Consulte o título do projeto em main.py -->
+	<div class="row-main">
+		<div class="column-principal">
+			<h4>Universidade Federal da Paraíba</h4>
+			<h5>Bacharelado em Ciência da Computação</h5>
+			<h5>Estrutura de Dados - 2018.1</h5>
+			<ul style="text-transform: capitalize;">
+				<li>leandro gomes do nascimento - 20170010070</li>
+				<li>luyza ellen domingos do nascimento - 20170002257</li>
+				<li>victor jose de sousa koehler - 20170068974</li>
+			</ul>
+		</div>
+		<div class="column-secundary">
+			<div class="column-image"></div>
+		</div>
+	</div>
 </main>
 
 {% endblock %}
