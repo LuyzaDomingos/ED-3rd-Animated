@@ -50,29 +50,70 @@
 </main>
 <!-- Código em java Script que será transferido depois para um arquivo separado.-->
 <script type="text/javascript">
-	var No = function(conteudo, proximo) {
+	var No = function(conteudo, proximo, id) {
+		this.id = id;
 		this.conteudo = conteudo;
 		this.proximo = proximo;
-	};
-
-	var Lista = function(){
+	}
+	No.prototype.getId = function() {
+		return this.id;
+	}
+	No.prototype.getConteudo = function() {
+		return this.conteudo;
+	}
+	No.prototype.getProximo = function() {
+		return this.proximo;
+	}
+	No.prototype.setProximo = function(proximo) {
+		this.proximo = proximo;
+	}
+	var Lista = function() {
 		this.cabeca = null;
 		this.tamanho = 0;
 	}
+
 	Lista.prototype.getTamanho = function() {
 		return this.tamanho;
 	}
+
 	Lista.prototype.vazia = function() {
-		return true;
+		return (this.tamanho == 0);
 	}
-	Lista.prototype.insere = function() {
-
+	Lista.prototype.buscaElemento = function(posicao){
+		var auxNo = this.cabeca;
+		var cont = 1;
+		if (this.vazia() || posicao<1 || posicao>this.tamanho){
+			return null;
+		}
+		while(cont < posicao){
+			auxNo = auxNo.getProximo();
+			cont++;
+		}
+		return auxNo;
 	}
-
-	var listaE = new Lista();
-	var divID = 0;
-	var raiz;
-	var destino;
+	Lista.prototype.inserir = function(posicao, conteudo, id) {
+		var novoNo = new No(conteudo, null, id);
+		if(posicao == 1){//insere no comeco
+			novoNo.setProximo(this.cabeca);
+			this.cabeca = novoNo;
+		}else if(posicao == this.tamanho+1){//insere no fim da lista
+			var auxNo = this.cabeca;
+			while(auxNo.getProximo() != null){
+				auxNo = auxNo.getProximo();
+			}
+			auxNo.setProximo(novoNo);
+		}else{//insere no meio
+			var cont=1;
+			var auxNo = this.cabeca;
+			while(cont < posicao-1){
+				auxNo = auxNo.getProximo();
+				cont++;
+			}
+			novoNo.setProximo(auxNo.getProximo());
+			auxNo.setProximo(novoNo);
+		}
+		this.tamanho++;
+	}
 	
 	function ligaBTN(){
 		$('#add').prop('disabled', false);
@@ -84,40 +125,109 @@
 		$('#rmv').prop('disabled', true);
 	}
 
+	function atualizaDetalhes(tamanho, inicio, fim){
+		if(tamanho!=null){
+			$('#tamanho').html(" "+tamanho+" ");
+		}
+		if(inicio!=null){
+			$('#cabeca').html(" "+inicio+" ");
+		}
+		if(fim!=null){
+			$('#cauda').html(" "+fim+" ");
+		}
+	}
 	$(document).ready(function() {
+		var listaE = new Lista();
+		var divID = 0;
+		var raiz;
+		var destino;
 		$('.comeco').show("slow");
 		$('#add').click(function() {
-			if (/^\d+$/.test($('#valor').val())){//verifica se a entrada é um número.
-				desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
-				raiz = $('#entrada').offset();
-				destino = $('.comeco').last().offset();
-				destino.top = parseInt((divID*110)/$('#apresentacao').width());
-				if (destino.left-raiz.left >= $('#apresentacao').width()) {
-					destino.top++;
-					destino.left = raiz.left+76.25;
-				}
-				if ($('#posicao').val()==""){
-					$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
-					$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
-					//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
-					$('#caixa'+divID).animate({top: 3+(80*destino.top), left: (destino.left-raiz.left-61)  }, 1500, function(){
-						console.log((raiz.top) +' '+ (destino.left-raiz.left));
-						$('#caixa'+divID++).css({"position": "static"});
-						$('#apresentacao').append('<div class="comeco"></div>');
-						$('.comeco').show("slow");
-						ligaBTN();
-					});
-				}else{
-					if (/^\d+$/.test($('#posicao').val())){//verifica se a entrada é um número.
-						console.log("posicao não vazia e é número");
-					}else{
-						console.log("posicao não vazia e não é número");
-					}
-				}
+			if (listaE.getTamanho()>=100) {
+				alert("Nem todo mundo é de ferro, eu já estou cançado, vamos dá uma pausa?");
+				desligaBTN();
 			}else{
-				alert("Apenas números inteiros são permitidos.");
+				if (/^\d+$/.test($('#valor').val())){//verifica se a entrada é um número.
+					desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
+					raiz = $('#entrada').offset();
+					if ($('#posicao').val()==""){
+						destino = $('.comeco').last().offset();
+						destino.top = parseInt((divID*110)/$('#apresentacao').width());
+						//vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
+						if (destino.left-raiz.left >= $('#apresentacao').width()) {
+							destino.top++;
+							destino.left = raiz.left+76.25;
+						}
+						listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
+						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+						$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
+						//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
+						$('#caixa'+divID).animate({top: 3+(80*destino.top), left: (destino.left-raiz.left-68)  }, 1500, function(){
+							$('#caixa'+divID++).css({"position": "static"});
+							$('#apresentacao').append('<div class="comeco"></div>');
+							$('.comeco').show("slow");
+							if(listaE.getTamanho() == 1){
+								atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), $('#valor').val());
+							}else{
+								atualizaDetalhes(listaE.getTamanho(), null, $('#valor').val());
+							}
+							ligaBTN();
+						});
+					}else{
+						if (/^\d+$/.test($('#posicao').val())){//verifica se a entrada é um número.
+							if (($('#posicao').val()>listaE.getTamanho()+1) || ($('#posicao').val()<1)){
+								alert("Aparentimente a posição passada não é válida.");
+								ligaBTN();
+							}else{
+								if($('#posicao').val()==listaE.getTamanho()+1){
+									destino = $('.comeco').last().offset();
+									destino.top = parseInt((divID*110)/$('#apresentacao').width());
+									//vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
+									listaE.inserir($('#posicao').val(), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
+									$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+								}else{
+									var anterior = listaE.buscaElemento($('#posicao').val());
+									destino = $('#caixa'+ anterior.getId()).offset();
+									destino.top = parseInt(($('#posicao').val()*110)/$('#apresentacao').width());
+									listaE.inserir($('#posicao').val(), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
+									$('#caixa'+anterior.getId()).before('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+									destino.left = destino.left-30;
+								}
+								if (destino.left-raiz.left >= $('#apresentacao').width()) {
+									destino.top++;
+									destino.left = raiz.left+76.25;
+								}
+								$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
+								//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
+								$('#caixa'+divID).animate({top: 3+(80*destino.top), left: (destino.left-raiz.left-68)  }, 1500, function(){
+									$('#caixa'+divID).css({"position": "static"});
+									$('#caixa'+divID++).after('<div class="comeco"></div>');
+									$('.comeco').show("slow");
+									if(listaE.getTamanho() == 1){
+										atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), $('#valor').val());
+									}else if($('#posicao').val()==1){
+										atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), null);
+									}else if($('#posicao').val()==listaE.getTamanho()){
+										atualizaDetalhes(listaE.getTamanho(), null, $('#valor').val());
+									}else{
+										atualizaDetalhes(listaE.getTamanho(), null, null);
+									}
+									ligaBTN();
+								});	
+							}
+						}else{
+							alert("Aparentimente a posição passada não é válida.");
+						}
+					}
+				}else{
+					alert("Apenas números inteiros são permitidos.");
+				}
 			}
-			
+			aux = listaE.cabeca;
+			while(aux!=null){
+				console.log(aux.getConteudo() +" de ID: "+aux.getId());
+				aux = aux.getProximo();
+			}
 		});
 		$('#rmv').click(function() {
 			$('#caixa5').hide(2000);
