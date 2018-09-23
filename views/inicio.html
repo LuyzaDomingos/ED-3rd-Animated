@@ -2,51 +2,45 @@
 
 {%block principal %}
 
-<main class="text-center bg_secundario">
-	<style>
-		main {
-			margin-top: 50px;
-		}
-
-		.row-main {
-			display: flex;
-			width: 70%;
-			margin-left: 15%;
-		}
-		
-		.column-secundary {
-			flex: 30%;
-			padding-top: 40px;
-			padding-bottom: 30px;
-		}
-
-		.column-principal {
-			flex: 70%;
-			padding-top: 50px;
-			padding-bottom: 30px;
-		}
-
-		.column-image {
-			height: 100%;
-			background: url(/assets/images/ufpb-logo.png);
-			background-size: contain;
-			background-repeat: no-repeat;
-		}
-	</style>
-	<h1 class="tx_primario">{{ titulo }}</h1> <!-- Consulte o título do projeto em main.py -->
-	<div class="row-main">
-		<div class="column-principal">
-			<h4>Universidade Federal da Paraíba</h4>
-			<h5>Bacharelado em Ciência da Computação</h5>
-			<h5>Estrutura de Dados - 2018.1</h5>
-			<ul style="text-transform: capitalize;">
-				<li>leandro gomes do nascimento - 20170010070</li>
-				<li>luyza ellen domingos do nascimento - 20170002257</li>
-				<li>victor jose de sousa koehler - 20170068974</li>
-			</ul>
-		</div>
-		<div class="column-secundary">
-			<div class="column-image"></div>
+<main class="text-center bg_auxiliar">
+	<div class="container bg_secundario">
+		<div class="row">
+			<div class="col-sm-12 col-lg-1">
+			</div>
+			<div class="col-sm-12 col-lg-10">
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<img class="col-12" src="/assets/images/ufpb-logo.png" alt="Logo da UFPB">
+					</div>
+					<div class="col-lg-7 col-sm-12 d-block">
+						<br><br>
+						<h4>Universidade Federal da Paraíba</h4>
+						<h5>Centro de Informática</h5>
+						<h5>Bacharelado em Ciência da Computação</h5>
+						<h5>Estrutura de Dados-2018.1 | Prof. Dr. Tiago Maritan</h5>
+					</div>
+					<div class="col-lg-1 col-sm-12">
+					</div>
+				</div>
+				<div class="col-12">
+					<br><br>
+					<h3 class="tx_primario">Estruturas de Dados Animadas</h3>
+					<br><br>
+				</div>
+				<div class="text-right col-12">
+					<h6>Leandro Gomes do Nascimento - 20170010070</h6>
+					<h6>Luyza Ellen Domingos do Nascimento - 20170002257</h6>
+					<h6>Victor Jose de Sousa Koehler - 20170068974</h6>
+				</div>
+				<div class="col-12 pr-4">
+					<br>
+					<h6>João Pessoa</h6>
+					<h6>Outubro/2016</h6>
+					<br>
+				</div>
+			</div>
+			<div class="col-sm-12 col-lg-1">
+			</div>
 		</div>
 	</div>
 </main>
