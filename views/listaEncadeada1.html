@@ -43,7 +43,9 @@
 				</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-				<div class="comeco"></div>
+				<div id="apresentacaoframe" class="nopadding">
+					<div class="comeco"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -152,19 +154,22 @@
 					raiz = $('#entrada').offset();
 					if ($('#posicao').val()==""){
 						destino = $('.comeco').last().offset();
+						comecowidth = $('.comeco').last().outerWidth();
 						destino.top = parseInt((divID*110)/$('#apresentacao').width());
+						destleft = destino.left+comecowidth-raiz.left;
 						//vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
-						if (destino.left-raiz.left >= $('#apresentacao').width()) {
+						if (destino.left + comecowidth + $(".caixa").first().width() >= $("#apresentacaoframe").offset().left + $("#apresentacaoframe").width()) {
 							destino.top++;
-							destino.left = raiz.left+76.25;
+							//destino.left = raiz.left;
+							destleft = $('.comeco').first().offset().left-raiz.left;
 						}
 						listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
-						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+						$('#apresentacaoframe').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
 						$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
 						//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
-						$('#caixa'+divID).animate({top: 3+(80*destino.top), left: (destino.left-raiz.left-68)  }, 1500, function(){
+						$('#caixa'+divID).animate({top: 3+(80*destino.top), 'left': "+=" + destleft + "px"  }, 500, function(){
 							$('#caixa'+divID++).css({"position": "static"});
-							$('#apresentacao').append('<div class="comeco"></div>');
+							$('#apresentacaoframe').append('<div class="comeco"></div>');
 							$('.comeco').show("slow");
 							if(listaE.getTamanho() == 1){
 								atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), $('#valor').val());
@@ -184,7 +189,7 @@
 									destino.top = parseInt((divID*110)/$('#apresentacao').width());
 									//vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
 									listaE.inserir($('#posicao').val(), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
-									$('#apresentacao').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+									$('#apresentacaoframe').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
 								}else{
 									var anterior = listaE.buscaElemento($('#posicao').val());
 									destino = $('#caixa'+ anterior.getId()).offset();
