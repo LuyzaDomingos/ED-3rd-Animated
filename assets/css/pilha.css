@@ -20,10 +20,6 @@
 .pilha_logica_horiz div {
     float: right;
 }
-.pbase
-{
-    background-color:gray;
-}
 .base_vert
 {
     height: 2px;
@@ -36,10 +32,23 @@
 }
 .pilha_logica_vert
 {
-    margin-left: 10px;
+    padding-left: 10px;
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+    border-top: unset;
+    border-radius: 5px;
 }
 .caixa_blur
 {
     -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
     filter: blur(5px);
+}
+.stackbtns
+{
+    width: 95%;
+}
+.stackbtns
+{
+    width: 95%;
 }

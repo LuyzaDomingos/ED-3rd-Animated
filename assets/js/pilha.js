@@ -37,12 +37,17 @@ function pop_gr()
 {
     if (getSize() != 0)
     {
+        $('#lblremovido')[0].innerHTML = ' ' + getTop() + ' ';
         $('.caixa_topo').remove();
         var oldt = $('.caixa_empilhada:eq(0)');
         oldt.removeClass('caixa_blur');
         oldt.addClass('caixa_topo');
         $('#tamanho')[0].innerHTML = ' ' + getSize() + ' ';
         $('#lbltopo')[0].innerHTML = ' ' + (getSize() == 0 ? '*' : getTop()) + ' ';
+    }
+    else
+    {
+        window.alert("Pilha vazia!");
     }
 }
 
@@ -76,6 +81,10 @@ $(document).ready(function() {
         if (/^\d+$/.test($('#caixa_valor').val()))
         {
             push_gr($('#caixa_valor').val());
+        }
+        else
+        {
+            window.alert("Insira um valor válido!");
         }
     });
 
