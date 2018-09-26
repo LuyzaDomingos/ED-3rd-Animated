@@ -27,7 +27,7 @@
 							<input id="posicao" class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
 						</div>
 						<div class="col-6">
-							<div id="entrada" class="caixa" title="Informe o valor da caixa">
+							<div id="entrada" class="caixa m-auto" title="Informe o valor da caixa">
 								<input type="text" id="valor" placeholder="valor">
 							</div>
 						</div>
@@ -146,7 +146,7 @@
 		$('.comeco').show("slow");
 		$('#add').click(function() {
 			if (listaE.getTamanho()>=100) {
-				alert("Nem todo mundo é de ferro, eu já estou cançado, vamos dá uma pausa?");
+				alert("Nem todo mundo é de ferro, eu já estou cansado, vamos dar uma pausa?");
 				desligaBTN();
 			}else{
 				if (/^\d+$/.test($('#valor').val())){//verifica se a entrada é um número.
@@ -155,19 +155,18 @@
 					if ($('#posicao').val()==""){
 						destino = $('.comeco').last().offset();
 						comecowidth = $('.comeco').last().outerWidth();
-						destino.top = parseInt((divID*110)/$('#apresentacao').width());
+						desttop = destino.top-raiz.top;
 						destleft = destino.left+comecowidth-raiz.left;
 						//vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
 						if (destino.left + comecowidth + $(".caixa").first().width() >= $("#apresentacaoframe").offset().left + $("#apresentacaoframe").width()) {
-							destino.top++;
-							//destino.left = raiz.left;
+							desttop += $('.comeco').first().outerHeight();
 							destleft = $('.comeco').first().offset().left-raiz.left;
 						}
 						listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
 						$('#apresentacaoframe').append('<div id="caixa'+divID+'" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
 						$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
 						//faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
-						$('#caixa'+divID).animate({top: 3+(80*destino.top), 'left': "+=" + destleft + "px"  }, 500, function(){
+						$('#caixa'+divID).animate({'top': "+=" + desttop + "px", 'left': "+=" + destleft + "px"  }, 1500, function(){
 							$('#caixa'+divID++).css({"position": "static"});
 							$('#apresentacaoframe').append('<div class="comeco"></div>');
 							$('.comeco').show("slow");

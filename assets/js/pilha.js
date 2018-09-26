@@ -19,6 +19,8 @@ function isVerticalOriented()
 }
 
 
+
+
 function push_gr(value)
 {
     if (getSize() != 0)
@@ -80,7 +82,8 @@ $(document).ready(function() {
     $('#add').click(function() {
         if (/^\d+$/.test($('#caixa_valor').val()))
         {
-            push_gr($('#caixa_valor').val());
+            animateInsert();
+            //push_gr($('#caixa_valor').val());
         }
         else
         {
@@ -103,3 +106,55 @@ $(document).ready(function() {
     setUpOrientacao();
     setUpVisualizacao();
 });
+
+
+
+
+function animateInsert()
+{
+    desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
+    var raiz = $('#entrada').offset();
+    var destino;
+    if (getSize() == 0)
+    {
+        destino = $('#pilha_logica').first().offset();
+    }
+    else
+    {
+        destino = $('.caixa_empilhada').first().offset();
+    }
+    desttop = destino.top-raiz.top;
+    destleft = destino.left-raiz.left;
+    //vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
+    // if (destino.left + comecowidth + $(".caixa").first().width() >= $("#apresentacaoframe").offset().left + $("#apresentacaoframe").width()) {
+    //     desttop += $('.comeco').first().outerHeight();
+    //     destleft = $('.comeco').first().offset().left-raiz.left;
+    // }
+    //listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
+    $('#apresentacao').append('<div id="caixatemp" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
+    $('#caixatemp').offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
+    //faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
+    $('#caixatemp').animate({'top': "+=" + desttop + "px", 'left': "+=" + destleft + "px"  }, 500, function(){
+        //$('#caixa'+divID++).css({"position": "static"});
+        $('#caixatemp').remove();
+        // $('#apresentacaoframe').append('<div class="comeco"></div>');
+        // $('.comeco').show("slow");
+        // if(listaE.getTamanho() == 1){
+        //     atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), $('#valor').val());
+        // }else{
+        //     atualizaDetalhes(listaE.getTamanho(), null, $('#valor').val());
+        // }
+        push_gr($('#caixa_valor').val());
+        ligaBTN();
+    });
+}
+	
+function ligaBTN(){
+    $('#add').prop('disabled', false);
+    $('#rmv').prop('disabled', false);
+}
+
+function desligaBTN(){
+    $('#add').prop('disabled', true);
+    $('#rmv').prop('disabled', true);
+}
