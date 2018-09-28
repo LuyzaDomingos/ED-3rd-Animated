@@ -158,12 +158,19 @@ function animateStack()
     //     destleft = $('.comeco').first().offset().left-raiz.left;
     // }
     //listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
-    $('#apresentacao').append('<div id="caixatemp" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');//cria uma nova caixa para a simulação
-    $('#caixatemp').offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa   
+
+    //cria uma nova caixa para a simulação
+    $('#apresentacao').append('<div id="caixatemp" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');
+    $('#caixatemp').offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa
+
+    $('#pilha_logica').prepend('<div id="caixa_virtual" class="caixa" style="height: 0; visibility: hidden;"></div>');
+    $('#caixa_virtual').animate({height : $(".caixa").first().outerHeight() + 'px'}, { duration: 500, queue: false });
+
     //faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
-    $('#caixatemp').animate({'top': "+=" + desttop + "px", 'left': "+=" + destleft + "px"  }, 500, function(){
+    $('#caixatemp').animate({'top': "+=" + desttop + "px", 'left': "+=" + destleft + "px", queue:false  }, 500, function(){
         //$('#caixa'+divID++).css({"position": "static"});
         $('#caixatemp').remove();
+        $('#caixa_virtual').remove();
         // $('#apresentacaoframe').append('<div class="comeco"></div>');
         // $('.comeco').show("slow");
         // if(listaE.getTamanho() == 1){
