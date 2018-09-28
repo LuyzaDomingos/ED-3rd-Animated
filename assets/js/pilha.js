@@ -21,6 +21,7 @@ function isVerticalOriented()
 
 
 
+
 function push_gr(value)
 {
     if (getSize() != 0)
@@ -82,8 +83,14 @@ $(document).ready(function() {
     $('#add').click(function() {
         if (/^\d+$/.test($('#caixa_valor').val()))
         {
-            animateInsert();
-            //push_gr($('#caixa_valor').val());
+            if (localStorage.getItem("disableAnimation") === null)
+            {
+                animateStack();
+            }
+            else
+            {
+                push_gr($('#caixa_valor').val());
+            }
         }
         else
         {
@@ -92,7 +99,14 @@ $(document).ready(function() {
     });
 
     $('#rmv').click(function() {
-        pop_gr();
+        if (localStorage.getItem("disableAnimation") === null)
+        {
+            animatePop();
+        }
+        else
+        {
+            pop_gr();
+        }
     });
 
     $('#visualizacao').change(function() {
@@ -110,7 +124,16 @@ $(document).ready(function() {
 
 
 
-function animateInsert()
+
+
+
+function hasScrollBar()
+{
+    return $(document).height() > $(window).height();
+}
+
+
+function animateStack()
 {
     desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
     var raiz = $('#entrada').offset();
@@ -125,6 +148,10 @@ function animateInsert()
     }
     desttop = destino.top-raiz.top;
     destleft = destino.left-raiz.left;
+    if (!hasScrollBar())
+    {
+        desttop -= $(".caixa").first().outerHeight();
+    }
     //vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
     // if (destino.left + comecowidth + $(".caixa").first().width() >= $("#apresentacaoframe").offset().left + $("#apresentacaoframe").width()) {
     //     desttop += $('.comeco').first().outerHeight();
@@ -147,6 +174,23 @@ function animateInsert()
         push_gr($('#caixa_valor').val());
         ligaBTN();
     });
+}
+
+function animatePop()
+{
+    if (getSize() != 0)
+    {
+        $(".caixa_topo").animate({ 
+            height: 0, 
+            opacity: 0
+            }, 'slow', function(){
+                pop_gr();
+            });
+    }
+    else
+    {
+        pop_gr();
+    }
 }
 	
 function ligaBTN(){
