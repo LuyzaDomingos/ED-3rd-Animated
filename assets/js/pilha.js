@@ -19,6 +19,9 @@ function isVerticalOriented()
 }
 
 
+
+
+
 function push_gr(value)
 {
     if (getSize() != 0)
@@ -37,12 +40,17 @@ function pop_gr()
 {
     if (getSize() != 0)
     {
+        $('#lblremovido')[0].innerHTML = ' ' + getTop() + ' ';
         $('.caixa_topo').remove();
         var oldt = $('.caixa_empilhada:eq(0)');
         oldt.removeClass('caixa_blur');
         oldt.addClass('caixa_topo');
         $('#tamanho')[0].innerHTML = ' ' + getSize() + ' ';
         $('#lbltopo')[0].innerHTML = ' ' + (getSize() == 0 ? '*' : getTop()) + ' ';
+    }
+    else
+    {
+        window.alert("Pilha vazia!");
     }
 }
 
@@ -75,12 +83,30 @@ $(document).ready(function() {
     $('#add').click(function() {
         if (/^\d+$/.test($('#caixa_valor').val()))
         {
-            push_gr($('#caixa_valor').val());
+            if (localStorage.getItem("disableAnimation") === null)
+            {
+                animateStack();
+            }
+            else
+            {
+                push_gr($('#caixa_valor').val());
+            }
+        }
+        else
+        {
+            window.alert("Insira um valor válido!");
         }
     });
 
     $('#rmv').click(function() {
-        pop_gr();
+        if (localStorage.getItem("disableAnimation") === null)
+        {
+            animatePop();
+        }
+        else
+        {
+            pop_gr();
+        }
     });
 
     $('#visualizacao').change(function() {
@@ -94,3 +120,92 @@ $(document).ready(function() {
     setUpOrientacao();
     setUpVisualizacao();
 });
+
+
+
+
+
+
+
+function hasScrollBar()
+{
+    return $(document).height() > $(window).height();
+}
+
+
+function animateStack()
+{
+    desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
+    var raiz = $('#entrada').offset();
+    var destino;
+    if (getSize() == 0)
+    {
+        destino = $('#pilha_logica').first().offset();
+    }
+    else
+    {
+        destino = $('.caixa_empilhada').first().offset();
+    }
+    desttop = destino.top-raiz.top;
+    destleft = destino.left-raiz.left;
+    if (!hasScrollBar())
+    {
+        desttop -= $(".caixa").first().outerHeight();
+    }
+    //vê se a linha tá preenchida e quebra a geração de novas animais a baixo.
+    // if (destino.left + comecowidth + $(".caixa").first().width() >= $("#apresentacaoframe").offset().left + $("#apresentacaoframe").width()) {
+    //     desttop += $('.comeco').first().outerHeight();
+    //     destleft = $('.comeco').first().offset().left-raiz.left;
+    // }
+    //listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
+
+    //cria uma nova caixa para a simulação
+    $('#apresentacao').append('<div id="caixatemp" class="caixa float-left" style="position: absolute;"><input type="text" value="'+$('#valor').val()+'" disabled></div>');
+    $('#caixatemp').offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa
+
+    $('#pilha_logica').prepend('<div id="caixa_virtual" class="caixa" style="height: 0; visibility: hidden;"></div>');
+    $('#caixa_virtual').animate({height : $(".caixa").first().outerHeight() + 'px'}, { duration: 500, queue: false });
+
+    //faz a animação até a posição correta, define a posição como estatica, cia a ligação qua aponta para o próximo elemento e desabilita os botões.
+    $('#caixatemp').animate({'top': "+=" + desttop + "px", 'left': "+=" + destleft + "px", queue:false  }, 500, function(){
+        //$('#caixa'+divID++).css({"position": "static"});
+        $('#caixatemp').remove();
+        $('#caixa_virtual').remove();
+        // $('#apresentacaoframe').append('<div class="comeco"></div>');
+        // $('.comeco').show("slow");
+        // if(listaE.getTamanho() == 1){
+        //     atualizaDetalhes(listaE.getTamanho(), $('#valor').val(), $('#valor').val());
+        // }else{
+        //     atualizaDetalhes(listaE.getTamanho(), null, $('#valor').val());
+        // }
+        push_gr($('#caixa_valor').val());
+        ligaBTN();
+    });
+}
+
+function animatePop()
+{
+    if (getSize() != 0)
+    {
+        $(".caixa_topo").animate({ 
+            height: 0, 
+            opacity: 0
+            }, 'slow', function(){
+                pop_gr();
+            });
+    }
+    else
+    {
+        pop_gr();
+    }
+}
+	
+function ligaBTN(){
+    $('#add').prop('disabled', false);
+    $('#rmv').prop('disabled', false);
+}
+
+function desligaBTN(){
+    $('#add').prop('disabled', true);
+    $('#rmv').prop('disabled', true);
+}

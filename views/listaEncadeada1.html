@@ -27,7 +27,7 @@
 							<input id="posicao" class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
 						</div>
 						<div class="col-6">
-							<div id="entrada" class="caixa" title="Informe o valor da caixa">
+							<div id="entrada" class="caixa m-auto" title="Informe o valor da caixa">
 								<input type="text" id="valor" placeholder="valor">
 							</div>
 						</div>
@@ -210,7 +210,7 @@
 					}else{
 						if (/^\d+$/.test($('#posicao').val())){//verifica se a entrada é um número.
 							if (($('#posicao').val()>listaE.getTamanho()+1) || ($('#posicao').val()<1)){
-								alert("Aparentemente a posição passada não é válida.");
+								alert("Aparentemente a posição fornecida não é válida.");
 								ligaBTN();
 							}else{
 								desligaBTN();//desabilita os botões para que duas animação não aconteçam ao mesmo tempo.
@@ -245,7 +245,7 @@
 								});	
 							}
 						}else{
-							alert("Aparentemente a posição passada não é válida.");
+							alert("Aparentemente a posição fornecida não é válida.");
 						}
 					}
 				}else{
