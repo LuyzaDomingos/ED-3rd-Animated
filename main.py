@@ -33,6 +33,10 @@ class PilhaHandler(Handler):
     def get(self):
         self.render("pilha.html", titulo = "TAD's - Pilha")
 
+class FilaHandler(Handler):
+    def get(self):
+        self.render("fila.html", titulo = "TAD's - Fila")
+
 class TesteHandler(Handler):
     def get(self):
         pass
@@ -45,5 +49,6 @@ app = webapp2.WSGIApplication([
     ('/listaSequencial', SequencialHandler),
     ('/listaSimplesmenteEncadeada', Encadeada1Handler),
     ('/pilha', PilhaHandler),
+    ('/fila', FilaHandler),
     ('/teste', TesteHandler)
 ], debug=True)
