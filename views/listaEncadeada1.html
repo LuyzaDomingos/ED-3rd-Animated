@@ -126,6 +126,23 @@
 		}
 		this.tamanho++;
 	}
+	Lista.prototype.remover = function(posicao){
+		var removido = this.cabeca;;
+		if (posicao == 1){ //remove no inicio da lista
+			this.cabeca = removido.getProximo();
+		}else{ //remove em outro lugar da lista
+			var anterior = this.cabeca;
+			var cont = 1;
+			while(cont <posicao-1){
+				anterior = anterior.getProximo();
+				cont++;
+			}
+			removido = anterior.getProximo();
+			anterior.setProximo(removido.getProximo());
+		}
+		this.tamanho--;
+		return removido;
+	}
 	
 	function ligaBTN(){
 		$('#add').prop('disabled', false);
@@ -138,15 +155,20 @@
 	}
 
 	function atualizaDetalhes(tamanho, inicio, fim){
-		if(tamanho!=null){
-			$('#tamanho').html(" "+tamanho+" ");
-		}
+		$('#tamanho').html(" "+tamanho+" ");
 		if(inicio!=null){
 			$('#cabeca').html(" "+inicio+" ");
 		}
 		if(fim!=null){
 			$('#cauda').html(" "+fim+" ");
 		}
+	}
+
+	function limpaDiv(id){
+		$('#caixa'+id).hide("slow", function(){
+			$('#caixa'+id).remove();
+			ligaBTN();
+		});
 	}
 	$(document).ready(function() {
 		var listaE = new Lista();
@@ -232,27 +254,31 @@
 			}
 		});
 		$('#rmv').click(function() {
-			$('#caixa5').hide(2000);
-			$('.comeco').last().hide(2000);
-			//verifica se o tipo da entrada é um número.
-			/*
-			console.log("click");
-			if (/^\d+$/.test($('#valor').val())){
-				if ($('#posicao').val()==""){
-					console.log("posicao vazia");
-				}else{
-					if (/^\d+$/.test($('#posicao').val())){
-						console.log("posicao não vazia e é número");
-					}else{
-						console.log("posicao não vazia e não é número");
-					}
-				}
+			var removido;
+			desligaBTN();
+			if($('#posicao').val()=="" && listaE.getTamanho()!=0){
+				removido = listaE.remover(1);
+				limpaDiv(removido.getId());
 			}else{
-				alert("Apenas números inteiros são permitidos.");
+				if (/^\d+$/.test($('#posicao').val())){//verifica se a entrada é um número.
+					if($('#posicao').val()>listaE.getTamanho() || $('#posicao').val()==0){
+						alert("Não foi possível remover\nAparentemente a posição passada não é válida.");
+						ligaBTN();
+						atualizaDetalhes(listaE.getTamanho(), );
+					}else{
+						removido = listaE.remover($('#posicao').val());
+						limpaDiv(removido.getId());
+					}
+				}else{
+					alert("Não foi possível remover\nAparentemente a posição passada não é válida.");
+					ligaBTN();
+				}
 			}
-			console.log("posição da entrada: top "+$('#entrada').offset().top +" left: "+$('#entrada').offset().left);
-			//console.log("posição de start: top "+$('#caixa'+divID).offset().top +" left: "+$('#caixa'+(divID-1)).offset().left);
-			console.log("posição da úlitma div: top "+$('.comeco').last().offset().top +" left: "+$('.comeco').last().offset().left);*/
+			if (listaE.getTamanho()!=0) {
+				atualizaDetalhes(listaE.getTamanho(), listaE.buscaElemento(1).getConteudo(), listaE.buscaElemento(listaE.getTamanho()).getConteudo());
+			}else{
+				atualizaDetalhes(0, "***", "***");
+			}
 		});
 	});
 </script>
