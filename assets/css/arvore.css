@@ -1,0 +1,67 @@
+#apresentacao {
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+ul.tree, ul.tree ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*background-color: #333333;*/
+    display: table;
+    width: 100%;
+}
+
+ul.tree li {
+    display: table-cell;
+    border-width: 1px;
+    border-color: #0000;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+ul.tree li div {
+    display: block;
+    color: white;
+    text-align: center;
+    margin: 3px 9px;
+    padding: 9px 12px;
+    text-decoration: none;
+    background-color: #0003;
+    border-radius: 10px;
+}
+
+ul.tree li div:hover {
+    background-color: #0006;
+}
+
+ul.tree li:hover {
+    border-color: #0006;
+}
+
+
+
+
+#contextmenucontainer {
+    position: absolute;
+    display: none;
+    background-color: #0006;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#contextmenucontainer div {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#contextmenucontainer div button {
+    width: 100%;
+    margin: 3px;
+}
