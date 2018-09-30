@@ -208,7 +208,6 @@
 						destinoTopo=80*parseInt((add*110)/($('#apresentacao').width()-110));
 						destinoEsquerdo=parseInt(((add*110)%($('#apresentacao').width()-110))/110)*110;
 						
-						console.log(add++);console.log($('#apresentacao').width());
 						$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa
 						//faz a animação até a posição correta, define a posição como estática, cria a ligação qua aponta para o próximo elemento e desabilita os botões.
 						$('#caixa'+divID).animate({top: destinoTopo, left: destinoEsquerdo}, 1000, function(){
@@ -302,12 +301,9 @@
 			if (/^\d+$/.test(posicao)){
 				elemento = listaE.buscaElemento(posicao);
 				if (elemento!=null){
-					$('.animate').animate({opacity: 0.3}, 300, function(){
-						$('#caixa'+elemento.getId()).delay(500).animate({opacity: 1}, 1500, function(){
-							$('.animate').css({"opacity": 1});
-							ligaBTN();
-						});
-					});
+					$('.animate').css({"opacity": 0.3});
+					$('#caixa'+elemento.getId()+' .caixa').addClass("shadow border-2 rounded");
+					$('#caixa'+elemento.getId()).animate({opacity: 1}, 1500);
 				}else{
 					alert("Não foi possível localizar algum elemento!\nAparentemente a posição passada não é válida.\n");
 					ligaBTN();
@@ -322,14 +318,10 @@
 			var valor = $('#valor').val();
 			if (/^\d+$/.test(valor)){
 				elemento = listaE.buscaPosicao(valor);
-				console.log(elemento);
 				if (elemento!=null){
-					$('.animate').animate({opacity: 0.3}, 300, function(){
-						$('#caixa'+elemento.getId()).animate({opacity: 1}, 1500, function(){
-							$('.animate').css({"opacity": 1});
-							ligaBTN();
-						});
-					});
+					$('.animate').css({"opacity": 0.3});
+					$('#caixa'+elemento.getId()+' .caixa').addClass("shadow border-2 rounded");
+					$('#caixa'+elemento.getId()).animate({opacity: 1}, 1500);
 				}else{
 					alert("Não localizamos elementos que corresponda com o valor informado!\n");
 					ligaBTN();
@@ -338,6 +330,15 @@
 				alert("Apenas números inteiros são permitidos.\n");
 				ligaBTN();
 			}
+		});
+		$('#entrada').focus(function(){
+			$('.caixa').removeClass("shadow border-2 rounded");
+			ligaBTN();
+		});
+		$('#valor').focus(function(){
+			$('.caixa').removeClass("shadow border-2 rounded");
+			$('.animate').css({"opacity": 1});
+			ligaBTN();
 		});
 	});
 </script>
