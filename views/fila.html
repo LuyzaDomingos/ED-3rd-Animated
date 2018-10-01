@@ -193,8 +193,8 @@
 					listaE.inserir((listaE.getTamanho()+1), $('#valor').val(), divID);//posição, div:valor e id Adiciona ao fim da lista
 					$('#apresentacao').append('<div id="caixa'+divID+'" class="float-left" style="position: absolute;"><div class="caixa float-left"><input type="text" value="'+$('#valor').val()+'" disabled></div><div class="comeco"></div></div>');//cria uma nova caixa para a simulação
 
-					destinoTopo=80*parseInt((add*110)/$('#apresentacao').width());
-					destinoEsquerdo=parseInt(((add*110)%$('#apresentacao').width())/110)*110;
+                    destinoTopo=80*parseInt((add*110)/($('#apresentacao').width()-110));
+                    destinoEsquerdo=parseInt(((add*110)%($('#apresentacao').width()-110))/110)*110;
 					
 					console.log(add++);console.log($('#apresentacao').width());
 					$('#caixa'+divID).offset({top: raiz.top, left: raiz.left});//define a posição de origem da nova caixa
