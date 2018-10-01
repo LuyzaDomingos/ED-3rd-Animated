@@ -3,66 +3,365 @@
 {%block principal %}
 
 <main class="text-center bg_secundario">
-	<h3 class="tx_primario">Lista Sequencial - Luyza</h3><!--Retirar o nome quando finalizar-->
+	<h3 class="tx_primario">Lista Sequencial</h3><!--Retirar o nome quando finalizar-->
+
+
 	<div id="content" class="col-12">
 		<div class="row">
 			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+
 				<div id="obs">
-					<p>Obs.: "dicas de como usar a aplicação"</p>
+				
+						
+						<p>Dica:  Antes de começar defina o tamanho da sua lista :</p>
+					<!--	<label for="#tamanho">Definir o tamanho da lista : </label> -->
+						<div class = "row">
+
+					<div class="col-6 nopadding">
+							<input id="funfa" class="col-11 padding-top 50px padding-bottom 50px text-center" type="text" name="funfa" title="Entrada para definir o tamanho da lista " placeholder="Tamanho">
+						</div>	
+					<div class="col-6 nopadding">
+							<button type="button" class=" col-7.8  btn btn-info btn-sm" id ="btntam">Confirmar</button>
+						</div>
+					</div>
 				</div><hr>
+		
 				<div id="atributos">
 					<h5>Detalhes</h5>
+					<label for="#nelementos">Nº de elementos: </label>
+					<span id="nelementos" class="badge badge-light"> 0 </span><br>
 					<label for="#tamanho">Tamanho: </label>
-					<span id="tamanho" class="badge badge-light"> 0 </span><br>					
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
 				</div><hr>
+
 				<div id="interacao" class="col-12">
 					<h5>Interagir</h5>
 					<div class="row">
+
+
 						<div class="col-6">
-							<label>Entradas: </label>
-							<input class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
-						</div>
-						<div class="col-6">
-							<div class="caixa" title="Informe o valor da caixa">
-								<input type="text" name="valor" placeholder="valor">
+							<div id = "entrada" class="caixa" title="Informe o valor da caixa">
+								<input type="text" id = "valor" name = "valor" placeholder="valor">
 							</div>
 						</div>
+
+						<div class="col-6">
+							<label>Entradas: </label>
+							<input class="col-12 nopadding text-center" type="text" id = "posicao" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
+						</div>
+
 					</div>
 					<div class="row">
 						<div class="col-6 nopadding">
-							<button type="button" class="btn btn-info btn-sm" id="add">Adicionar</button>
+							<button type="button" class="btn btn-info btn-sm" id="btnadd">Adicionar</button>
 						</div>
 						<div class="col-6 nopadding">
-							<button type="button" class="btn btn-danger btn-sm" id="rmv">Remover</button>
+							<button type="button" class="btn btn-danger btn-sm" id="btnrmv">Remover</button>
+						</div>
+					</div>Buscar na lista por:
+					<div class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-success btn-sm" id="btnpos">Posição</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-success btn-sm" id="btnval">Valor</button>
 						</div>
 					</div>
 				</div><hr>
 			</div>
-			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-				<div id="start" class="comeco"></div>
+
+			<div id="animacao" class="col-lg-10 col-sm-12 border">
+				<div class="col-12 nopadding">
+					<div class="comeco2"></div>
+				</div>
+				<div id="apresentacao" class="col-12 nopadding"></div>
 			</div>
-		</div>
+
+
+		<!--	<div id="apresentacao" class="col-lg-10 col-sm-12 border">
+				<div id = "start"  class = "comeco2"></div>
+
+		</div> -->
+
+
 	</div>
 </main>
+
+
 <!-- Código em java Script que será transferido depois para um arquivo separado.-->
+
+
 <script type="text/javascript">
+	//Define a classe Elemento.
+	var Elemento = function(id, conteudo){
+		this.id = id;
+		this.conteudo = conteudo;
+	}
+	Elemento.prototype.getId = function() {
+	    return this.id;
+	}
+
+	Elemento.prototype.getConteudo = function() {
+	    return this.conteudo;
+	}
+
+	Elemento.prototype.setConteudo = function(conteudo) {
+	    this.conteudo = conteudo;
+	}
+
+	var ListaSeq = function(tamanho){
+		this.tamanho = tamanho;
+		this.nElementos = 0;
+		this.dados = new Array();
+	}
+
+	ListaSeq.prototype.getTamanho  = function(){
+		return this.tamanho;
+	}
+	
+	ListaSeq.prototype.Elementos = function(){
+		return this.nElementos;
+	}
+	
+	/*
+	ListaSeq.prototype.vazia  = function (){
+		return this.tamanho == 0;
+	} */
+
+	ListaSeq.prototype.cheia = function(tamanho){
+		return this.nElementos == this.tamanho;
+	}
+
+	//procurar elemento a partir da posição
+	ListaSeq.prototype.procurarElemento = function(posicao){
+		//return (posicao>nElementos || posicao<=0)
+
+		if(posicao>this.nElementos || posição<=0){
+			return false;
+		} 
+		return this.dados[pos-1];
+	}
+
+	//procurar elemento a partir do valor
+	ListaSeq.prototype.procurarValor = function(valor){
+		for(var i = 0; i<this.nElementos; i++){
+			if(this.dados[i] == valor){
+				return (i+1);
+			}
+		}
+	}
+
+
+
+	ListaSeq.prototype.inserir = function(posicao, elemento){
+
+		for (var i = this.nElementos; i >= posicao; i--) {
+			this.dados[i] = this.dados[i-1];
+		}
+		this.dados[posicao] = valor;
+		//this.nElementos++;
+	}
+
+	ListaSeq.prototype.remover = function(posicao){
+		for(var i = pos-1; i<=this.nElementos; i++){
+			this.dados[i] = this.dados[i+1];
+		}
+		//nElementos--;
+	}
+	var lista;
+	//var elementos = 0;
+
 	$(document).ready(function() {
-		$('#add').click(function() { //botão para adicionar caixinha de valor 
-			   // $('.text-left').css('float','right');
-				$('.comeco').append('<div class="caixa" title="Informe o valor da caixa"><input type="text" name="valor" placeholder="valor"></div>');
- 			
-		});
-		$('#rmv').click(function() {
-			alert("Clicou. Esse é uma exemplo de dialog.");
-		});
-	});
+
+		function ligaBTN(){ // abilita botoes
+			$('#btntam').prop('disabled', false);
+			$('#btnadd').prop('disable',false);
+			$('#btnrmv').prop('disable',false);
+			$('#btnval').prop('disabled', false);
+	        $('#btnpos').prop('disabled', false);	
+		}
+
+		function desligaBTN(){ // desabilita botoes
+			$('#btntam').prop('disabled', true)
+			$('#btnadd').prop('disable',true);
+			$('#btnrmv').prop('disable',true);
+			$('#btnval').prop('disabled', true);
+	        $('#btnpos').prop('disabled', true);
+		}
+
+		//está atualizando o campo detalhe
+		function atualizaTamanho(tamanho){ 
+			$('#tamanho').html(" "+tamanho+" "); // preenche o campo 'tamanho'
+
+		}
+		function atualizaElementos(nElementos){ 
+			$('#nelementos').html(" "+nElementos+" ");//atualiza o campo de 'número de elementos'
+
+		}
+
+		ligaBTN();
+		var divID = 0; //para  a posição do elementos
+		var elementos = 0;
+
+		$('#btntam').click(function(){
+			var tamanho = $('#funfa').val();
+			if((/^\d+$/.test(tamanho))){ // verificação de o tamanho informado é um número inteiro
+				if(tamanho<100 && tamanho!=0){ // só aceita tamanhos menores que 100 e diferente de zero
+					lista = new ListaSeq(tamanho);
+					atualizaTamanho(tamanho);
+					for (var i = 0; i < tamanho; i++) {
+						//lista.inserir(new Elemento(divID, 0));
+						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>');//cria uma nova caixa para a simulação
+					}
+					$('#btntam').prop('disable',true); // desliga botão de tamanho
+					ligaBTN();
+				}
+				else{
+					alert("Lista muito grande ou muito pequena.\n");
+				}
+			}
+			else{
+				alert("Digite um número inteiro.\n");
+			}
+		}); // acaba aqui a do botão tamanho
+
+		//função do botão adicionar 
+		$('#btnadd').click(function(){
+
+			if(/^\d+$/.test($('#valor').val())){ // verifica se valor é um inteiro
+				if(/^\d+$/.test($('#posicao').val())){ // verifica se posição é um inteiro
+					var  pos = $('#posicao').val();
+					console.log(elementos+" "+lista.cheia(tamanho) + " " + pos + " " + (parseInt(tamanho.innerText)+1 + " (" + (pos - 1) + " <= " +  elementos));
+
+					// condição para NÃO inserção da caixinha, ou seja, só vai NÃO inserir se tamanho é igual a número de elementos, ou  posição é maior que o (tamanho+1)  ou posição for menor que 0 oi pos -1 for maior que o número de elementos  
+					if( parseInt(tamanho.innerText) == elementos || pos >parseInt(tamanho.innerText)+1 || pos<=0 || (pos - 1) > elementos ){ 
+						alert("Número não pode ser adicionado. Tente outra vez!");
+					}
+
+					//adiciona o valor na caixinha na posição indicada  e remove a última caixinha 
+					else{
+						$(".caixautil").eq(pos - 1).before('<div id="caixa" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="'+$('#valor').val()+'" disabled></div></div>');
+						$(".caixautil").last().remove(); 
+						// incrementa elementos e atualiza o campo elemento
+						elementos++;
+						atualizaElementos(elementos);
+					}
+				}
+			}
+
+
+		}); // acaba aqui a do botão adicionar
+
+		//var  elemento = $('#nelementos').val();
+		//var tamanho  = $('#tamanho').val();
+
+		$('#btnrmv').click(function(){
+
+
+			if(/^\d+$/.test($('#posicao').val())){ //testanto se numero informado é um número inteiro.
+
+				var  pos = $('#posicao').val();
+				//console.log("posição: "+(pos-1)+ "  "+ "elemento:"+ " " + elementos);
+
+				if((pos-1) < 0 ||  (pos-1) >= elementos){
+					console.log("posição menor que o número de elementos");
+					alert("Posição inválida. Escolha outra!");
+				}
+
+				else{
+				console.log("posição: "+(pos-1)+ "  "+ $(".caixautil").length);
+				$(".caixautil").eq(pos - 1).remove();
+				$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>');
+				elementos--;
+				atualizaElementos(elementos);
+			}
+
+			}
+			else{
+				alert("Digite um número inteiro!");
+			}
+
+		}); //acaba aqui a do botão remover
+
+		$('#btnpos').click(function(){
+			//alert("valor funcionando");
+			$('#btnadd').prop('disable',true); // desliga botão de adicionar 
+			$('#btnrmv').prop('disable',true); // desliga botão de remover
+
+			if(/^\d+$/.test($('#posicao').val())){ // verificar se é numero
+				var  pos = $('#posicao').val();
+				if((pos-1) < 0 ||  (pos-1) >= elementos){
+					alert("Posição inválida!");
+				}
+				else{
+					//está com um bug. fica eternamente opaco; prcurar jeito de deixar por determinado tempo
+					$(".caixautil").eq(pos - 1).css({"opacity": 0.3});
+					//animate({opacity: 1}, 1500);
+				}
+
+			}
+			else{
+				alert("Digite um número inteiro");
+			}
+
+
+
+		});//acaba aqui a do botão posição
+
+		$('#btnval').click(function(){
+
+			//alert("valor funcionando");
+			$('#btnadd').prop('disable',true); // desliga botão de adicionar 
+			$('#btnrmv').prop('disable',true); // desliga botão de remover
+
+			if(/^\d+$/.test($('#valor').val())){ // verificar se é um numero
+				var  valor = $('#valor').val();
+				console.log(valor); 
+				var qtde  = $(".caixautil").length;
+				console.log(elementos);
+				
+
+
+
+
+
+				for(var i = 0; i<=elementos; i++){
+					console.log("entrou no for");	
+					//console.log("valor da caixa: "+" "+($('.caixautil').val()));
+					if(valor != ($('.caixautil > input').eq(i).val()) ){
+						console.log("valor :"+valor+ "  caixa: "+ " " + $('.caixautil > input').eq(i).val() );
+						console.log("entrou no if ");				
+						//alert("Valor não foi encontrado!");
+						//break;
+					}
+					else{
+						console.log("entrou no else ");	
+						//$('.caixautil > input').eq(i).val().css({"opacity": 0.3});
+						$(".caixautil").eq(i).css({"opacity": 0.3});
+						//break;
+					}
+					//console.log("parou");	
+					//break;
+				} // o for acaba aqui 
+
+			}
+			else{
+				alert("Digite um número inteiro");
+			}
+
+		});//acaba aqui a do botão posição
+
+
+
+
+
+
+
+
+	
+	}); // acaba aqui a do documento
+
 </script>
 
-<!-- div que coloca o botão de testando script ; para fazer o append();
-
-<div id="teste" style="width: 70px; height: 70px; background: pink;" class="border">
-					TEstando script
-</div>
-<!-->
 
 {% endblock %}
