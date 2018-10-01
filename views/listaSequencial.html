@@ -2,6 +2,8 @@
 
 {%block principal %}
 
+
+<!--<script type="text/javascript" src="/assets/js/listaSeq.js"></script> irei arrumar depois  ; separação de javascript do html --> 
 <main class="text-center bg_secundario">
 	<h3 class="tx_primario">Lista Sequencial</h3><!--Retirar o nome quando finalizar-->
 
@@ -203,17 +205,18 @@
 		var divID = 0; //para  a posição do elementos
 		var elementos = 0;
 
+		// função do botão tamanho
 		$('#btntam').click(function(){
 			var tamanho = $('#funfa').val();
 			if((/^\d+$/.test(tamanho))){ // verificação de o tamanho informado é um número inteiro
-				if(tamanho<100 && tamanho!=0){ // só aceita tamanhos menores que 100 e diferente de zero
+				if(tamanho<101 && tamanho!=0){ // só aceita tamanhos menores que 100 e diferente de zero
 					lista = new ListaSeq(tamanho);
 					atualizaTamanho(tamanho);
 					for (var i = 0; i < tamanho; i++) {
 						//lista.inserir(new Elemento(divID, 0));
 						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>');//cria uma nova caixa para a simulação
 					}
-					$('#btntam').prop('disable',true); // desliga botão de tamanho
+					//$('#btntam').prop('disable',true); // desliga botão de tamanho
 					ligaBTN();
 				}
 				else{
@@ -223,7 +226,9 @@
 			else{
 				alert("Digite um número inteiro.\n");
 			}
+			$('#btntam').prop('disabled', true) // desliga o botão para que o usuário não tente colocar mais valores de tamanho
 		}); // acaba aqui a do botão tamanho
+
 
 		//função do botão adicionar 
 		$('#btnadd').click(function(){
@@ -234,8 +239,9 @@
 					console.log(elementos+" "+lista.cheia(tamanho) + " " + pos + " " + (parseInt(tamanho.innerText)+1 + " (" + (pos - 1) + " <= " +  elementos));
 
 					// condição para NÃO inserção da caixinha, ou seja, só vai NÃO inserir se tamanho é igual a número de elementos, ou  posição é maior que o (tamanho+1)  ou posição for menor que 0 oi pos -1 for maior que o número de elementos  
+					//(parseInt(tamanho.innerText) == elementos) --> essa é a condição para lista cheia
 					if( parseInt(tamanho.innerText) == elementos || pos >parseInt(tamanho.innerText)+1 || pos<=0 || (pos - 1) > elementos ){ 
-						alert("Número não pode ser adicionado. Tente outra vez!");
+						alert("Número não pode ser adicionado!");
 					}
 
 					//adiciona o valor na caixinha na posição indicada  e remove a última caixinha 
@@ -247,14 +253,20 @@
 						atualizaElementos(elementos);
 					}
 				}
+				else{
+					alert("Digite uma posição!");	
+				}
+				//$('#btnrmv').prop('disable',true); // desliga por um momento o botão remover
 			}
+			else{
+					alert("Digite um número inteiro!");
+				}
 
 
 		}); // acaba aqui a do botão adicionar
 
-		//var  elemento = $('#nelementos').val();
-		//var tamanho  = $('#tamanho').val();
-
+		
+		//função da remoção	
 		$('#btnrmv').click(function(){
 
 
@@ -283,6 +295,8 @@
 
 		}); //acaba aqui a do botão remover
 
+
+		//busca por posição
 		$('#btnpos').click(function(){
 			//alert("valor funcionando");
 			$('#btnadd').prop('disable',true); // desliga botão de adicionar 
@@ -308,6 +322,9 @@
 
 		});//acaba aqui a do botão posição
 
+
+		/*
+		//busca por valor
 		$('#btnval').click(function(){
 
 			//alert("valor funcionando");
@@ -320,11 +337,6 @@
 				var qtde  = $(".caixautil").length;
 				console.log(elementos);
 				
-
-
-
-
-
 				for(var i = 0; i<=elementos; i++){
 					console.log("entrou no for");	
 					//console.log("valor da caixa: "+" "+($('.caixautil').val()));
@@ -349,13 +361,7 @@
 				alert("Digite um número inteiro");
 			}
 
-		});//acaba aqui a do botão posição
-
-
-
-
-
-
+		});//acaba aqui a do botão valor */
 
 
 	
