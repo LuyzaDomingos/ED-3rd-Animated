@@ -176,17 +176,15 @@
 	$(document).ready(function() {
 
 		function ligaBTN(){ // abilita botoes
-			$('#btntam').prop('disabled', false);
-			$('#btnadd').prop('disable',false);
-			$('#btnrmv').prop('disable',false);
+			$('#btnadd').prop('disabled',false);
+			$('#btnrmv').prop('disabled',false);
 			$('#btnval').prop('disabled', false);
 	        $('#btnpos').prop('disabled', false);	
 		}
 
 		function desligaBTN(){ // desabilita botoes
-			$('#btntam').prop('disabled', true)
-			$('#btnadd').prop('disable',true);
-			$('#btnrmv').prop('disable',true);
+			$('#btnadd').prop('disabled',true);
+			$('#btnrmv').prop('disabled',true);
 			$('#btnval').prop('disabled', true);
 	        $('#btnpos').prop('disabled', true);
 		}
@@ -218,6 +216,7 @@
 					}
 					//$('#btntam').prop('disable',true); // desliga botão de tamanho
 					ligaBTN();
+					$('#btntam').prop('disabled', true); // desliga o botão para que o usuário não tente colocar mais valores de tamanho
 				}
 				else{
 					alert("Lista muito grande ou muito pequena.\n");
@@ -226,7 +225,6 @@
 			else{
 				alert("Digite um número inteiro.\n");
 			}
-			$('#btntam').prop('disabled', true) // desliga o botão para que o usuário não tente colocar mais valores de tamanho
 		}); // acaba aqui a do botão tamanho
 
 
@@ -237,7 +235,6 @@
 				if(/^\d+$/.test($('#posicao').val())){ // verifica se posição é um inteiro
 					var  pos = $('#posicao').val();
 					console.log(elementos+" "+lista.cheia(tamanho) + " " + pos + " " + (parseInt(tamanho.innerText)+1 + " (" + (pos - 1) + " <= " +  elementos));
-
 					// condição para NÃO inserção da caixinha, ou seja, só vai NÃO inserir se tamanho é igual a número de elementos, ou  posição é maior que o (tamanho+1)  ou posição for menor que 0 oi pos -1 for maior que o número de elementos  
 					//(parseInt(tamanho.innerText) == elementos) --> essa é a condição para lista cheia
 					if( parseInt(tamanho.innerText) == elementos || pos >parseInt(tamanho.innerText)+1 || pos<=0 || (pos - 1) > elementos ){ 
@@ -261,7 +258,8 @@
 			else{
 					alert("Digite um número inteiro!");
 				}
-
+			$('#btnadd').prop('disabled',false);
+			$('#btnrmv').prop('disabled',false);
 
 		}); // acaba aqui a do botão adicionar
 
@@ -309,7 +307,10 @@
 				}
 				else{
 					//está com um bug. fica eternamente opaco; prcurar jeito de deixar por determinado tempo
-					$(".caixautil").eq(pos - 1).css({"opacity": 0.3});
+					$('.animate').css({"opacity": 0.3});
+              		$(".caixautil").eq(pos - 1).addClass("shadow border-2 rounded");
+               		$(".caixautil").eq(pos - 1).animate({opacity: 1}, 1500);
+					//$(".caixautil").eq(pos - 1).css({"opacity": 0.3});
 					//animate({opacity: 1}, 1500);
 				}
 
@@ -323,14 +324,11 @@
 		});//acaba aqui a do botão posição
 
 
-		/*
+		
 		//busca por valor
 		$('#btnval').click(function(){
-
+			desligaBTN();
 			//alert("valor funcionando");
-			$('#btnadd').prop('disable',true); // desliga botão de adicionar 
-			$('#btnrmv').prop('disable',true); // desliga botão de remover
-
 			if(/^\d+$/.test($('#valor').val())){ // verificar se é um numero
 				var  valor = $('#valor').val();
 				console.log(valor); 
@@ -340,8 +338,8 @@
 				for(var i = 0; i<=elementos; i++){
 					console.log("entrou no for");	
 					//console.log("valor da caixa: "+" "+($('.caixautil').val()));
-					if(valor != ($('.caixautil > input').eq(i).val()) ){
-						console.log("valor :"+valor+ "  caixa: "+ " " + $('.caixautil > input').eq(i).val() );
+					if(valor != ($('.caixautil > div > input').eq(i).val()) ){
+						console.log("valor :"+valor+ "  caixa: "+ " " + $('.caixautil > div > input').eq(i).val() );
 						console.log("entrou no if ");				
 						//alert("Valor não foi encontrado!");
 						//break;
@@ -349,8 +347,10 @@
 					else{
 						console.log("entrou no else ");	
 						//$('.caixautil > input').eq(i).val().css({"opacity": 0.3});
-						$(".caixautil").eq(i).css({"opacity": 0.3});
-						//break;
+						$('.animate').css({"opacity": 0.3});
+              			$(".caixautil").eq(i).addClass("shadow border-2 rounded");
+               			$(".caixautil").eq(i).animate({opacity: 1}, 1500);
+						break;
 					}
 					//console.log("parou");	
 					//break;
@@ -360,9 +360,19 @@
 			else{
 				alert("Digite um número inteiro");
 			}
+		});//acaba aqui a do botão valor 
 
-		});//acaba aqui a do botão valor */
+		$('#posicao').focus(function(){
+	        $('.caixautil').removeClass("shadow border-2 rounded");
+	        $('.animate').css({"opacity": 1});
+	        ligaBTN();
+	    });
 
+	    $('#valor').focus(function(){
+	        $('.caixautil').removeClass("shadow border-2 rounded");
+	        $('.animate').css({"opacity": 1});
+	        ligaBTN();
+	    });
 
 	
 	}); // acaba aqui a do documento
