@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+
+{%block principal %}
+
+<script type="text/javascript" src="/assets/js/listaEncadeada.js"></script>
+<main class="text-center bg_secundario">
+	<h3 class="tx_primario">Lista Simplesmente Encadeada</h3>
+	<div id="content" class="col-12">
+		<div class="row">
+			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+				<div id="obs">
+					<p>Interaja com a Lista Simplesmente Encadeada usando os botões abaixo. Adicionando, removendo ou buscando por valores, informando, ou não, uma posição.</p>
+				</div><hr>
+				<div id="atributos">
+					<h5>Detalhes</h5>
+					<label for="#tamanho">Tamanho: </label>
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
+					<label for="#cabeca">Início: </label>
+					<span id="cabeca" class="badge badge-light"> *** </span><br>
+					<label for="#cauda">Fim: </label>
+					<span id="cauda" class="badge badge-light"> *** </span>
+				</div><hr>
+				<div id="interacao" class="col-12">
+					<h5>Interagir</h5>
+					<div class="row">
+						<div class="col-6">
+							<label>Entradas: </label>
+							<input id="posicao" class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
+						</div>
+						<div class="col-6">
+							<div id="entrada" class="caixa m-auto" title="Informe o valor da caixa">
+								<input type="text" id="valor" placeholder="valor">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-info btn-sm" id="add">Adicionar</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-danger btn-sm" id="rmv">Remover</button>
+						</div>
+					</div>Buscar na lista por:
+					<div class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-success btn-sm" id="src_pos">Posição</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-success btn-sm" id="src_val">Valor</button>
+						</div>
+					</div>
+				</div><hr>
+			</div>
+			<div id="animacao" class="col-lg-10 col-sm-12 border">
+				<div class="col-12 nopadding">
+					<div class="comeco3"></div>
+				</div>
+				<div id="apresentacao" class="col-12 nopadding"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+{% endblock %}

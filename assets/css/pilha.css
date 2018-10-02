@@ -1,0 +1,54 @@
+.pilha_container_vert
+{
+    margin: 0 auto;
+    width: 100px;
+    height: 100%;
+    display: table;
+}
+.pilha_container_horiz
+{
+    display: flex;
+    align-items: center;
+    justify-content: unset;
+    height: 100%;
+}
+.pilha_sk_vert {
+    padding-bottom: 25px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+.pilha_logica_horiz div {
+    float: right;
+}
+.base_vert
+{
+    height: 2px;
+    width: 100px;
+}
+.base_horiz
+{
+    height: 100px;
+    width: 2px;
+}
+.pilha_logica_vert
+{
+    padding-left: 10px;
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+    border-top: unset;
+    border-radius: 5px;
+}
+.caixa_blur
+{
+    -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+    filter: blur(5px);
+}
+.stackbtns
+{
+    width: 95%;
+}
+.stackbtns
+{
+    width: 95%;
+}

@@ -1,0 +1,70 @@
+{% extends "index.html" %}
+
+{%block principal %}
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/pilha.css"/>
+<script src="/assets/js/pilha.js"></script>
+<main class="text-center bg_secundario">
+	<h3 class="tx_primario">Pilha</h3>
+	<div id="content" class="col-12">
+		<div class="row">
+			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+				<div id="obs">
+					<p>Dica: Alterne a exibição para conferir o conteúdo completo da pilha:</p>
+				</div>
+				<div id="botoesopc">
+					<div class="btnopc" style="display: none">
+						<label for="#orientacao">Orientação: </label>
+						<input id="orientacao" data-toggle="toggle" data-on="Vertical" data-width="90" data-size="small" data-off="Horizontal" data-offstyle="info" type="checkbox" checked>
+					</div>
+					<div class="btnopc">
+							<label for="#visualizar">Visualização: </label>
+						<input id="visualizacao" data-toggle="toggle" data-on="Topo" data-width="90" data-size="small" data-off="Completa" data-offstyle="info" type="checkbox" checked>
+					</div>
+				</div>
+				<hr>
+				<div id="atributos">
+					<h5>Detalhes</h5>
+					<label for="#tamanho">Tamanho: </label>
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
+					<label for="#lbltopo">Topo: </label>
+					<span id="lbltopo" class="badge badge-light"> * </span><br>
+				</div><hr>
+				<div id="interacao" class="col-12">
+					<h5>Interagir</h5>
+					<div class="row">
+						<div class="col-6">
+							<div id="entrada" class="caixa m-auto" title="Informe o valor da caixa">
+								<input type="text" id="caixa_valor" name="valor" placeholder="valor">
+							</div>
+						</div>
+						<div class="col-6">
+							<label for="#lblremovido">Removido: </label>
+							<span id="lblremovido" class="badge badge-light"> * </span><br>
+						</div>
+					</div>
+					<div id="stackbuttons" class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-info btn-sm stackbtns" id="add">Empilhar</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-danger btn-sm stackbtns" id="rmv">Desempilhar</button>
+						</div>
+					</div>
+				</div><hr>
+			</div>
+			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
+				<div id="start" class="comeco2"></div>
+				<div id="pilha_container" class="gvpilha pilha_container_vert">
+					<div id="pilha_sk" class="gvpilha pilha_sk_vert">
+						<div id="pilha_logica" class="gvpilha pilha_logica_vert">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
