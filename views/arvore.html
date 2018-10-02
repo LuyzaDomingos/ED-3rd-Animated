@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+{%block principal %}
+
+<link rel="stylesheet" type="text/css" href="/assets/css/arvore.css"/>
+<script src="/assets/js/arvore.js"></script>
+<main class="text-center bg_secundario">
+	<h3 class="tx_primario">Árvores</h3>
+	<div id="content" class="col-12">
+		<div class="row">
+			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+				<div id="obs">
+					<p>EXPERIMENTAL</p>
+				</div><hr>
+				<div id="atributos">
+					<h5>Detalhes</h5>
+					<label for="#tamanho">Tamanho: </label>
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
+
+                    <div>
+                        <label for="#lblraiz">Raiz: </label>
+                        <span id="lblraiz" class="badge badge-light"> * </span>
+                        <button type="button" class="btn btn-info btn-sm" id="addroot">Adicionar</button><br>
+                    </div>
+				</div><hr>
+				<!--
+				<div id="interacao" class="col-12">
+					<h5>Interagir</h5>
+					<div class="row">
+						<div class="col-6">
+							<label>Entradas: </label>
+							<input class="col-12 nopadding text-center" type="text" name="posicao" title="Entradas em branco adiciona/remove ao fim da lista" placeholder="Posição">
+						</div>
+						<div class="col-6">
+							<div class="caixa" title="Informe o valor da caixa">
+								<input type="text" name="valor" placeholder="valor">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-info btn-sm" id="add">Adicionar</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-danger btn-sm" id="rmv">Remover</button>
+						</div>
+					</div>
+				</div><hr>
+				-->
+			</div>
+			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
+                <ul id="treecontainer" class="tree"><!--
+
+                    <li><div class="treenode treeroot" href="#root">Root</div><ul>
+                        <li><div class="treenode" href="#news">News</div><ul>
+                            <li><div class="treenode" href="#news">News</div></li>
+                            <li><div class="treenode" href="#home">Home</div></li>
+                            <li><div class="treenode" href="#contact">Contact</div></li>
+                            <li><div class="treenode" href="#about">About</div></li>
+                        </ul></li>
+                        <li><div class="treenode" href="#home">Home</div><ul>
+                                <li><div class="treenode" href="#news">News</div></li>
+                                <li><div class="treenode" href="#home">Home</div></li>
+                                <li><div class="treenode" href="#contact">Contact</div></li>
+                                <li><div class="treenode" href="#about">About</div></li>
+                            </ul></li>
+                        <li><div class="treenode" href="#contact">Contact</div></li>
+                        <li><div class="treenode" href="#about">About</div></li>
+                    </ul></li>-->
+
+                </ul>
+			</div>
+		</div>
+	</div>
+</main>
+
+<div id="contextmenucontainer">
+    <div id="menu">
+        <button type="button" class="btn btn-info btn-lg" id="menu_add">Adicionar</button><br>
+        <button type="button" class="btn btn-warning btn-lg" id="menu_edit">Editar</button><br>
+        <button type="button" class="btn btn-danger btn-lg" id="menu_rem">Remover</button><br><hr>
+        <button type="button" class="btn btn-secondary btn-lg" id="menu_abort">Cancelar</button>
+    </div>
+</div>
+
+
+{% endblock %}

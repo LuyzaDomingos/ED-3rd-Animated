@@ -19,7 +19,7 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
     def get(self):
         # chamando a pagina e passando uma variavel chamda titulo para o arquivo em html
-        self.render("inicio.html", titulo = "Estruturas de dados animadas")
+        self.render("inicio.html", titulo = "Estruturas de Dados Animadas")
 
 class SequencialHandler(Handler):
     def get(self):
@@ -33,6 +33,14 @@ class PilhaHandler(Handler):
     def get(self):
         self.render("pilha.html", titulo = "TAD's - Pilha")
 
+class FilaHandler(Handler):
+    def get(self):
+        self.render("fila.html", titulo = "TAD's - Fila")
+
+class ArvoreHandler(Handler):
+    def get(self):
+        self.render("arvore.html", titulo = "TAD's - Arvore")
+
 class TesteHandler(Handler):
     def get(self):
         pass
@@ -45,5 +53,7 @@ app = webapp2.WSGIApplication([
     ('/listaSequencial', SequencialHandler),
     ('/listaSimplesmenteEncadeada', Encadeada1Handler),
     ('/pilha', PilhaHandler),
+    ('/fila', FilaHandler),
+    ('/arvore', ArvoreHandler),
     ('/teste', TesteHandler)
 ], debug=True)
