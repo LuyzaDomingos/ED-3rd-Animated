@@ -32,13 +32,14 @@ function updateScreen()
     $('#addroot').prop('disabled', $(".treenode").length != 0);
     $('#lblraiz')[0].innerHTML = ' ' + (getSize() != 0 ? getRootValue() : "*") + ' ';
     $('#tamanho')[0].innerHTML = ' ' + getSize() + ' ';
+    $('#altura')[0].innerHTML = ' ' + getTreeHeight() + ' ';
 }
 
 
 
 function addChild(selector, value, espclass)
 {
-    selector.append('<li><div class="treenode ' + (espclass != null ? espclass : "" ) + 'disablednode">' + value + '</div><ul></ul></li>');
+    selector.append('<li class="li_node"><div class="treenode ' + (espclass != null ? espclass : "" ) + 'disablednode">' + value + '</div><ul></ul></li>');
     enableNode();
     updateScreen();
 }
@@ -51,6 +52,19 @@ function addRoot(value)
 function getSize()
 {
     return $("#treecontainer div.treenode").length;
+}
+
+function getSubHeight(sub)
+{
+    return jQuery.makeArray(sub).reduce(function(acc, el){
+        var l = $(el).parents().filter(".li_node").length;
+        return l > acc ? l : acc;
+    }, 0);
+}
+
+function getTreeHeight()
+{
+    return getSubHeight($(".treenode"));
 }
 
 function getRootValue()

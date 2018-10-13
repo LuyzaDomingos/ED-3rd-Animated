@@ -41,6 +41,10 @@ class ArvoreHandler(Handler):
     def get(self):
         self.render("arvore.html", titulo = "TAD's - Arvore")
 
+class AVLHandler(Handler):
+    def get(self):
+        self.render("avl.html", titulo = "TAD's - AVL")
+
 class TesteHandler(Handler):
     def get(self):
         pass
@@ -55,5 +59,6 @@ app = webapp2.WSGIApplication([
     ('/pilha', PilhaHandler),
     ('/fila', FilaHandler),
     ('/arvore', ArvoreHandler),
+    ('/avl', AVLHandler),
     ('/teste', TesteHandler)
 ], debug=True)
