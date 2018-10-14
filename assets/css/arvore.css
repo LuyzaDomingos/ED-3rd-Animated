@@ -21,7 +21,7 @@ ul.tree li {
     border-radius: 10px;
 }
 
-ul.tree li div {
+ul.tree li .treenode {
     display: block;
     color: white;
     text-align: center;
@@ -32,7 +32,7 @@ ul.tree li div {
     border-radius: 10px;
 }
 
-ul.tree li div:hover {
+ul.tree li .treenode:hover {
     background-color: #0006;
 }
 
@@ -64,4 +64,32 @@ ul.tree li:hover {
 #contextmenucontainer div button {
     width: 100%;
     margin: 3px;
+}
+
+
+.box_avl_utter {
+    display: inline-flex;
+}
+
+.box_avl_inside {
+    background: #40ead880;
+    height: 14px;
+    width: 14px;
+    border-radius: 6px;
+    margin-top: -3px;
+    line-height: 14px;
+    font-size: 12px;
+}
+
+.redtext {
+    color: red;
+}
+
+
+.nodehighlight {
+    background: #e3191980 !important;
+}
+
+.nodemidlight {
+    background: #975caab3 !important;
 }

@@ -1,7 +1,13 @@
 $(document).ready(function() {
     setupModalDialog();
-    setupModalMenu();
+    setupTree();
     updateScreen();
+});
+
+function setupTree()
+{
+    console.log("Standard Tree");
+    setupModalMenu();
     $('#addroot').click(function() {
         showModalDialog(function(value) {
             if (/^\d+$/.test(value))
@@ -14,18 +20,7 @@ $(document).ready(function() {
             }
         }, null);
     });
-    /*
-    $('#add').click(function() { //botão para adicionar caixinha de valor 
-           // $('.text-left').css('float','right');
-            $('.comeco').append('<div class="caixa" title="Informe o valor da caixa"><input type="text" name="valor" placeholder="valor"></div>');
-         
-    });
-    $('#rmv').click(function() {
-        alert("Clicou. Esse é uma exemplo de dialog.");
-    });
-    */
-});
-
+}
 
 function updateScreen()
 {
@@ -37,12 +32,29 @@ function updateScreen()
 
 
 
+function childFactory(value, espclass)
+{
+    return '<li class="li_node' + (espclass != null ? (" " + espclass) : "" ) +
+        '"><div class="treenode disablednode">' + value + '</div><ul></ul></li>';
+}
+
+function getSelectorUL(selector)
+{
+    if (selector.hasClass("treenode"))
+        return selector.siblings();
+    else if (selector.hasClass("li_node"))
+        return selector.children().last();
+    else
+        return selector;
+}
+
 function addChild(selector, value, espclass)
 {
-    selector.append('<li class="li_node"><div class="treenode ' + (espclass != null ? espclass : "" ) + 'disablednode">' + value + '</div><ul></ul></li>');
+    getSelectorUL(selector).append(childFactory(value, espclass));
     enableNode();
     updateScreen();
 }
+
 
 function addRoot(value)
 {
@@ -56,20 +68,28 @@ function getSize()
 
 function getSubHeight(sub)
 {
-    return jQuery.makeArray(sub).reduce(function(acc, el){
+    console.log("old and problematic");
+    sub = getSelectorUL(sub).parent();
+    
+    return jQuery.makeArray(sub.find(".treenode")).reduce(function(acc, el){
         var l = $(el).parents().filter(".li_node").length;
         return l > acc ? l : acc;
-    }, 0);
+    }, 0) - sub.parent().parents().filter(".li_node").length;
 }
 
 function getTreeHeight()
 {
-    return getSubHeight($(".treenode"));
+    return getSubHeight($(".treeroot"));
 }
 
 function getRootValue()
 {
-    return $(".treeroot")[0].innerText;
+    return getNodeValue($(".treeroot").eq(0));
+}
+
+function getNodeValue(node)
+{
+    return getSelectorUL(node).siblings().text();
 }
 
 var selectedNode;
@@ -81,9 +101,6 @@ function enableNode()
     });
     $('.disablednode').removeClass('disablednode');
 }
-
-
-
 
 
 
@@ -129,7 +146,6 @@ function setupModalMenu()
         $('#contextmenucontainer').hide(300);
     });
 }
-
 
 
 
@@ -193,6 +209,16 @@ function setupModalDialog()
         }
         $("#inputdialog").hide(500);
     });
+    $('#dvalor').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#dadd").click();
+        }
+        else if (e.keyCode == 27)
+        {
+            $("#drmv").click();
+        }
+    });
 }
 
 var mokfunc, mcancfunc;
@@ -203,4 +229,5 @@ function showModalDialog(okFunction, canceledFunction, defaultvalue, okbtntext)
     $("#dadd")[0].innerHTML = (okbtntext != null ? okbtntext : "Adicionar");
     $("#inputdialog").show(500);
     $('#dvalor').val(defaultvalue == null ? "" : defaultvalue);
+    $('#dvalor').focus();
 }
