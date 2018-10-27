@@ -1,0 +1,1 @@
+// Separação do código em JavaScript do HTML5/CSS

@@ -2,10 +2,9 @@
 
 {%block principal %}
 
-
-<!--<script type="text/javascript" src="/assets/js/listaSeq.js"></script> irei arrumar depois  ; separação de javascript do html --> 
+<!--	<script src = "assets\js\listaSequencial.js"></script> o que importa o código em Javascript da lista sequencial -->
 <main class="text-center bg_secundario">
-	<h3 class="tx_primario">Lista Sequencial</h3><!--Retirar o nome quando finalizar-->
+	<h3 class="tx_primario">Lista Sequencial</h3>
 
 
 	<div id="content" class="col-12">
@@ -94,132 +93,67 @@
 
 
 <script type="text/javascript">
-	//Define a classe Elemento.
-	var Elemento = function(id, conteudo){
-		this.id = id;
-		this.conteudo = conteudo;
-	}
-	Elemento.prototype.getId = function() {
-	    return this.id;
-	}
 
-	Elemento.prototype.getConteudo = function() {
-	    return this.conteudo;
-	}
-
-	Elemento.prototype.setConteudo = function(conteudo) {
-	    this.conteudo = conteudo;
-	}
-
+	// cria uma lista	
 	var ListaSeq = function(tamanho){
 		this.tamanho = tamanho;
 		this.nElementos = 0;
 		this.dados = new Array();
 	}
 
-	ListaSeq.prototype.getTamanho  = function(){
-		return this.tamanho;
-	}
-	
-	ListaSeq.prototype.Elementos = function(){
-		return this.nElementos;
-	}
-	
-	/*
-	ListaSeq.prototype.vazia  = function (){
-		return this.tamanho == 0;
-	} */
-
+	// verifica se lista está cheia
 	ListaSeq.prototype.cheia = function(tamanho){
 		return this.nElementos == this.tamanho;
 	}
 
-	//procurar elemento a partir da posição
-	ListaSeq.prototype.procurarElemento = function(posicao){
-		//return (posicao>nElementos || posicao<=0)
 
-		if(posicao>this.nElementos || posição<=0){
-			return false;
-		} 
-		return this.dados[pos-1];
-	}
-
-	//procurar elemento a partir do valor
-	ListaSeq.prototype.procurarValor = function(valor){
-		for(var i = 0; i<this.nElementos; i++){
-			if(this.dados[i] == valor){
-				return (i+1);
-			}
-		}
-	}
-
-
-
-	ListaSeq.prototype.inserir = function(posicao, elemento){
-
-		for (var i = this.nElementos; i >= posicao; i--) {
-			this.dados[i] = this.dados[i-1];
-		}
-		this.dados[posicao] = valor;
-		//this.nElementos++;
-	}
-
-	ListaSeq.prototype.remover = function(posicao){
-		for(var i = pos-1; i<=this.nElementos; i++){
-			this.dados[i] = this.dados[i+1];
-		}
-		//nElementos--;
-	}
-	var lista;
-	//var elementos = 0;
 
 	$(document).ready(function() {
 
-		function ligaBTN(){ // abilita botoes
+		function ligaBTN(){ // abilita botões
 			$('#btnadd').prop('disabled',false);
 			$('#btnrmv').prop('disabled',false);
 			$('#btnval').prop('disabled', false);
 	        $('#btnpos').prop('disabled', false);	
 		}
 
-		function desligaBTN(){ // desabilita botoes
+		function desligaBTN(){ // desabilita botões
 			$('#btnadd').prop('disabled',true);
 			$('#btnrmv').prop('disabled',true);
 			$('#btnval').prop('disabled', true);
 	        $('#btnpos').prop('disabled', true);
 		}
 
-		//está atualizando o campo detalhe
+		//funçoes que atualizam mo campo de Detalhes
 		function atualizaTamanho(tamanho){ 
-			$('#tamanho').html(" "+tamanho+" "); // preenche o campo 'tamanho'
+			$('#tamanho').html(" "+tamanho+" "); 
 
 		}
 		function atualizaElementos(nElementos){ 
-			$('#nelementos').html(" "+nElementos+" ");//atualiza o campo de 'número de elementos'
+			$('#nelementos').html(" "+nElementos+" ");
 
 		}
 
 		ligaBTN();
-		var divID = 0; //para  a posição do elementos
+		var divID = 0; //para  a posição do elementos (não foi utilizado)
 		var elementos = 0;
 
 		// função do botão tamanho
 		$('#btntam').click(function(){
+			
 			var tamanho = $('#funfa').val();
-			if((/^\d+$/.test(tamanho))){ // verificação de o tamanho informado é um número inteiro
-				if(tamanho<101 && tamanho!=0){ // só aceita tamanhos menores que 100 e diferente de zero
-					lista = new ListaSeq(tamanho);
+			if((/^\d+$/.test(tamanho))){ // verifica se tamanho é nº inteiros
+				if(tamanho<101 && tamanho!=0){ //restrição de valores para o tamanho da lista (não deixar o usuário criar lista pequenas ou enormes) (*)
+					lista = new ListaSeq(tamanho); //cria uma lista
 					atualizaTamanho(tamanho);
 					for (var i = 0; i < tamanho; i++) {
-						//lista.inserir(new Elemento(divID, 0));
-						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>');//cria uma nova caixa para a simulação
+						$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>'); //cria uma nova caixa para a simulação
 					}
-					//$('#btntam').prop('disable',true); // desliga botão de tamanho
 					ligaBTN();
-					$('#btntam').prop('disabled', true); // desliga o botão para que o usuário não tente colocar mais valores de tamanho
+					$('#btntam').prop('disabled', true); // desliga o botão para que o usuário não tente colocar mais valores no tamanho
 				}
 				else{
-					alert("Lista muito grande ou muito pequena.\n");
+					alert("Lista muito grande ou muito pequena.\n"); //(*)
 				}
 			}
 			else{
@@ -230,56 +164,47 @@
 
 		//função do botão adicionar 
 		$('#btnadd').click(function(){
-
-			if(/^\d+$/.test($('#valor').val())){ // verifica se valor é um inteiro
-				if(/^\d+$/.test($('#posicao').val())){ // verifica se posição é um inteiro
+			// verifica se valor e posição são nº inteiros
+			if(/^\d+$/.test($('#valor').val())){  
+				if(/^\d+$/.test($('#posicao').val())){ 
 					var  pos = $('#posicao').val();
-					console.log(elementos+" "+lista.cheia(tamanho) + " " + pos + " " + (parseInt(tamanho.innerText)+1 + " (" + (pos - 1) + " <= " +  elementos));
-					// condição para NÃO inserção da caixinha, ou seja, só vai NÃO inserir se tamanho é igual a número de elementos, ou  posição é maior que o (tamanho+1)  ou posição for menor que 0 oi pos -1 for maior que o número de elementos  
-					//(parseInt(tamanho.innerText) == elementos) --> essa é a condição para lista cheia
+					// condições para NÃO inserção na caixinha
 					if( parseInt(tamanho.innerText) == elementos || pos >parseInt(tamanho.innerText)+1 || pos<=0 || (pos - 1) > elementos ){ 
 						alert("Número não pode ser adicionado!");
 					}
 
-					//adiciona o valor na caixinha na posição indicada  e remove a última caixinha 
+					//adiciona o valor na caixinha na posição indicada(insere uma nova caixinha) e remove a última caixinha; 
 					else{
 						$(".caixautil").eq(pos - 1).before('<div id="caixa" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="'+$('#valor').val()+'" disabled></div></div>');
 						$(".caixautil").last().remove(); 
-						// incrementa elementos e atualiza o campo elemento
 						elementos++;
 						atualizaElementos(elementos);
 					}
 				}
 				else{
-					alert("Digite uma posição!");	
+					alert("Digite uma posição válida!");	
 				}
-				//$('#btnrmv').prop('disable',true); // desliga por um momento o botão remover
 			}
 			else{
 					alert("Digite um número inteiro!");
 				}
-			$('#btnadd').prop('disabled',false);
+			$('#btnadd').prop('disabled',false);  // liga botão
 			$('#btnrmv').prop('disabled',false);
 
-		}); // acaba aqui a do botão adicionar
+		}); 
 
 		
-		//função da remoção	
+		//função da remover
 		$('#btnrmv').click(function(){
 
-
-			if(/^\d+$/.test($('#posicao').val())){ //testanto se numero informado é um número inteiro.
-
+			if(/^\d+$/.test($('#posicao').val())){ 
 				var  pos = $('#posicao').val();
-				//console.log("posição: "+(pos-1)+ "  "+ "elemento:"+ " " + elementos);
-
-				if((pos-1) < 0 ||  (pos-1) >= elementos){
-					console.log("posição menor que o número de elementos");
+				if((pos-1) < 0 ||  (pos-1) >= elementos){ 
 					alert("Posição inválida. Escolha outra!");
 				}
-
 				else{
-				console.log("posição: "+(pos-1)+ "  "+ $(".caixautil").length);
+				//console.log("posição: "+(pos-1)+ "  "+ $(".caixautil").length);
+				// remove uma caixinha a partir da posição ; adiciona no fim uma nova caixinha
 				$(".caixautil").eq(pos - 1).remove();
 				$('#apresentacao').append('<div id="caixa'+divID+'" class="caixautil animate float-left" style="position: static;"><div class="caixa float-left"><input type="text" value="0" disabled></div></div>');
 				elementos--;
@@ -290,78 +215,62 @@
 			else{
 				alert("Digite um número inteiro!");
 			}
-
-		}); //acaba aqui a do botão remover
+		}); 
 
 
 		//busca por posição
 		$('#btnpos').click(function(){
-			//alert("valor funcionando");
-			$('#btnadd').prop('disable',true); // desliga botão de adicionar 
-			$('#btnrmv').prop('disable',true); // desliga botão de remover
+			desligaBTN(); // desabilita botões(usuário)
 
-			if(/^\d+$/.test($('#posicao').val())){ // verificar se é numero
+			if(/^\d+$/.test($('#posicao').val())){ 
 				var  pos = $('#posicao').val();
 				if((pos-1) < 0 ||  (pos-1) >= elementos){
 					alert("Posição inválida!");
 				}
 				else{
-					//está com um bug. fica eternamente opaco; prcurar jeito de deixar por determinado tempo
+						//animação - destaque na caixinha
 					$('.animate').css({"opacity": 0.3});
               		$(".caixautil").eq(pos - 1).addClass("shadow border-2 rounded");
                		$(".caixautil").eq(pos - 1).animate({opacity: 1}, 1500);
-					//$(".caixautil").eq(pos - 1).css({"opacity": 0.3});
-					//animate({opacity: 1}, 1500);
 				}
 
 			}
 			else{
 				alert("Digite um número inteiro");
 			}
-
-
-
-		});//acaba aqui a do botão posição
+		});
 
 
 		
 		//busca por valor
 		$('#btnval').click(function(){
 			desligaBTN();
-			//alert("valor funcionando");
-			if(/^\d+$/.test($('#valor').val())){ // verificar se é um numero
+
+			var achou = false; //registra se número foi encontrado ou não
+			if(/^\d+$/.test($('#valor').val())){ 
 				var  valor = $('#valor').val();
-				console.log(valor); 
 				var qtde  = $(".caixautil").length;
-				console.log(elementos);
+
+				for(var i = 0; i<elementos; i++){
 				
-				for(var i = 0; i<=elementos; i++){
-					console.log("entrou no for");	
-					//console.log("valor da caixa: "+" "+($('.caixautil').val()));
-					if(valor != ($('.caixautil > div > input').eq(i).val()) ){
-						console.log("valor :"+valor+ "  caixa: "+ " " + $('.caixautil > div > input').eq(i).val() );
-						console.log("entrou no if ");				
-						//alert("Valor não foi encontrado!");
-						//break;
-					}
-					else{
-						console.log("entrou no else ");	
-						//$('.caixautil > input').eq(i).val().css({"opacity": 0.3});
-						$('.animate').css({"opacity": 0.3});
-              			$(".caixautil").eq(i).addClass("shadow border-2 rounded");
-               			$(".caixautil").eq(i).animate({opacity: 1}, 1500);
-						break;
-					}
-					//console.log("parou");	
-					//break;
-				} // o for acaba aqui 
-
-			}
+						if(valor == ($('.caixautil > div > input').eq(i).val() ) ){ // verifica se o valor é igual ao valor da caixinha
+							$('.animate').css({"opacity": 0.3});
+	              			$(".caixautil").eq(i).addClass("shadow border-2 rounded");
+	               			$(".caixautil").eq(i).animate({opacity: 1}, 1500);
+	               			achou = true; //registrado
+							break;
+						}
+				} 
+				if(achou == false){
+					alert("Número não encontrado na lista.");
+				}
+			} 
 			else{
-				alert("Digite um número inteiro");
+				alert("Digite um número inteiro.");
 			}
-		});//acaba aqui a do botão valor 
+		}); 
 
+		// encerra a animação de busca por posição e por valor	
 		$('#posicao').focus(function(){
 	        $('.caixautil').removeClass("shadow border-2 rounded");
 	        $('.animate').css({"opacity": 1});
@@ -374,7 +283,6 @@
 	        ligaBTN();
 	    });
 
-	
 	}); // acaba aqui a do documento
 
 </script>
