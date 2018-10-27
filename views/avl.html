@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+
+{%block principal %}
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/arvore.css"/>
+<script src="/assets/js/arvore.js"></script>
+<script src="/assets/js/avl.js"></script>
+<main class="text-center bg_secundario">
+	<h3 class="tx_primario">Árvore de <b>A</b>delson-<b>V</b>elsky <b>L</b>andis</h3>
+	<div id="content" class="col-12">
+		<div class="row">
+			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+				<div id="obs">
+                    <p>Utilize os botões abaixo ou pressione <b>I</b> ou <b>B</b>
+                        no seu teclado para, respectivamente, Inserir e Buscar.</p>
+				</div><hr>
+				<div id="atributos">
+					<h5>Detalhes</h5>
+					<label for="#tamanho">Tamanho: </label>
+					<span id="tamanho" class="badge badge-light"> 0 </span><br>
+					<label for="#altura">Altura: </label>
+					<span id="altura" class="badge badge-light"> 0 </span><br>
+
+                    <div>
+                        <label for="#lblraiz">Raiz: </label>
+                        <span id="lblraiz" class="badge badge-light"> * </span>
+                        <button type="button" class="btn btn-info btn-sm" id="addroot">Adicionar</button><br>
+                    </div>
+				</div><hr>
+				<div id="interacao" class="col-12">
+					<h5>Interagir</h5>
+					<div class="row">
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-info btn-sm" id="add">Inserir</button>
+						</div>
+						<div class="col-6 nopadding">
+							<button type="button" class="btn btn-success btn-sm" id="search">Buscar</button>
+						</div>
+					</div>
+				</div><hr>
+				<div id="botoesopc">
+					<h5>Avançado</h5>
+					<div>
+						<label for="#fb">FB: </label>
+						<input id="fb" data-toggle="toggle" data-off="Oculto" data-on="Visível" data-width="90" data-size="small" data-offstyle="info" type="checkbox" checked>
+					</div>
+				</div>
+				<hr>
+			</div>
+			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
+                <ul id="treecontainer" class="tree"></ul>
+
+                </ul>
+			</div>
+		</div>
+	</div>
+</main>
+
+{% endblock %}

@@ -21,25 +21,33 @@ ul.tree li {
     border-radius: 10px;
 }
 
-ul.tree li div {
+ul.tree li .treenode {
     display: block;
     color: white;
     text-align: center;
-    margin: 3px 9px;
-    padding: 9px 12px;
+    margin: 18px auto;
+    padding: 20px 12px;
     text-decoration: none;
     background-color: #0003;
-    border-radius: 10px;
+    border-radius: 100%;
+    width: 80px;
+    height: 65px;
 }
 
-ul.tree li div:hover {
+ul.tree li .treenode:hover {
     background-color: #0006;
 }
 
+/*
 ul.tree li:hover {
     border-color: #0006;
 }
+*/
 
+.directline {
+    background-color: #62626280;
+    height: 3px;
+}
 
 
 
@@ -51,6 +59,7 @@ ul.tree li:hover {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 20;
 }
 
 #contextmenucontainer div {
@@ -64,4 +73,32 @@ ul.tree li:hover {
 #contextmenucontainer div button {
     width: 100%;
     margin: 3px;
+}
+
+
+.box_avl_utter {
+    display: inline-flex;
+}
+
+.box_avl_inside {
+    background: #40ead880;
+    height: 14px;
+    width: 14px;
+    border-radius: 6px;
+    margin-top: -3px;
+    line-height: 14px;
+    font-size: 12px;
+}
+
+.redtext {
+    color: red;
+}
+
+
+.nodehighlight {
+    background: #1937e380 !important;
+}
+
+.nodemidlight {
+    background: #e774deb3 !important;
 }
