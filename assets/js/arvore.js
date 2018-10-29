@@ -1,11 +1,37 @@
+/*
+                                                 ,  ,
+                                               / \/ \
+                                              (/ //_ \_
+     .-._                                      \||  .  \
+      \  '-._                            _,:__.-"/---\_ \
+ ______/___  '.    .--------------------'~-'--.)__( , )\ \
+`'--.___  _\  /    |             Here        ,'    \)|\ `\|
+     /_.-' _\ \ _:,_          Be Dragons           " ||   (
+   .'__ _.' \'-/,`-~`                                |/
+       '. ___.> /=,|  Abandon hope all ye who enter  |
+        / .-'/_ )  '---------------------------------'
+        )'  ( /(/
+             \\ "
+              '=='
+
+This horrible monstrosity takes a medicare monstrosity and mangles it
+into a data structure that can easily be used to create a medicare feed.
+It's bloated, confusing, and pretty awful by necessity(for the most part).
+*/
+
+
+
+
+
 $(document).ready(function () {
     setupModalDialog();
     setupTree();
     updateScreen();
-    window.onresize = function(event) {
+    window.onresize = function (event) {
         updateScreen();
     };
 });
+
 
 function setupTree() {
     console.log("Standard Tree");
@@ -22,83 +48,10 @@ function setupTree() {
     });
 }
 
-function updateScreen() {
-    $('#addroot').prop('disabled', $(".treenode").length != 0);
-    $('#lblraiz')[0].innerHTML = ' ' + (getSize() != 0 ? getRootValue() : "*") + ' ';
-    $('#tamanho')[0].innerHTML = ' ' + getSize() + ' ';
-    $('#altura')[0].innerHTML = ' ' + getTreeHeight() + ' ';
-    drawTreeLines(getRootNode());
-}
 
 
 
-function childFactory(value, espclass) {
-    return '<li class="li_node' + (espclass != null ? (" " + espclass) : "") +
-        '"><div class="treenode disablednode">' + value + '</div><ul></ul></li>';
-}
 
-function getSelectorUL(selector) {
-    if (selector.hasClass("treenode"))
-        return selector.siblings();
-    else if (selector.hasClass("li_node"))
-        return selector.children().last();
-    else
-        return selector;
-}
-
-function getSelectorDIV(selector) {
-    return getSelectorUL(selector).siblings();
-}
-
-function addChild(selector, value, espclass) {
-    getSelectorUL(selector).append(childFactory(value, espclass));
-    enableNode();
-    updateScreen();
-}
-
-
-function addRoot(value) {
-    addChild($("#treecontainer"), value, "treeroot ")
-}
-
-function getSize() {
-    return $("#treecontainer div.treenode").length;
-}
-
-function getSubHeight(sub) {
-    console.log("old and problematic");
-    sub = getSelectorUL(sub).parent();
-
-    return jQuery.makeArray(sub.find(".treenode")).reduce(function (acc, el) {
-        var l = $(el).parents().filter(".li_node").length;
-        return l > acc ? l : acc;
-    }, 0) - sub.parent().parents().filter(".li_node").length;
-}
-
-function getTreeHeight() {
-    return getSubHeight($(".treeroot"));
-}
-
-function getRootValue() {
-    return getNodeValue($(".treeroot").eq(0));
-}
-
-function getRootNode() {
-    return $(".treeroot").eq(0);
-}
-
-function getNodeValue(node) {
-    return getSelectorUL(node).siblings().text();
-}
-
-var selectedNode;
-function enableNode() {
-    $('.disablednode').first().click(function (arg) {
-        selectedNode = $(this);
-        $("#contextmenucontainer").show(300);
-    });
-    $('.disablednode').removeClass('disablednode');
-}
 
 
 
@@ -139,8 +92,6 @@ function setupModalMenu() {
         $('#contextmenucontainer').hide(300);
     });
 }
-
-
 
 
 function setupModalDialog() {
@@ -208,6 +159,92 @@ function setupModalDialog() {
     });
 }
 
+
+
+
+
+
+
+function getSize() {
+    return $("#treecontainer div.treenode").length;
+}
+
+function getSubHeight(sub) {
+    console.log("old and problematic");
+    sub = getSelectorUL(sub).parent();
+
+    return jQuery.makeArray(sub.find(".treenode")).reduce(function (acc, el) {
+        var l = $(el).parents().filter(".li_node").length;
+        return l > acc ? l : acc;
+    }, 0) - sub.parent().parents().filter(".li_node").length;
+}
+
+function getTreeHeight() {
+    return getSubHeight($(".treeroot"));
+}
+
+function getRootValue() {
+    return getNodeValue($(".treeroot").eq(0));
+}
+
+function getRootNode() {
+    return $(".treeroot").eq(0);
+}
+
+function getNodeValue(node) {
+    return getSelectorUL(node).siblings().text();
+}
+
+function getSelectorUL(selector) {
+    if (selector.hasClass("treenode"))
+        return selector.siblings();
+    else if (selector.hasClass("li_node"))
+        return selector.children().last();
+    else
+        return selector;
+}
+
+function getSelectorDIV(selector) {
+    return getSelectorUL(selector).siblings();
+}
+
+
+
+
+
+function addChild(selector, value, espclass) {
+    getSelectorUL(selector).append(childFactory(value, espclass));
+    enableNode();
+    updateScreen();
+}
+
+function addRoot(value) {
+    addChild($("#treecontainer"), value, "treeroot ")
+}
+
+
+
+
+
+var selectedNode;
+function enableNode() {
+    $('.disablednode').first().click(function (arg) {
+        selectedNode = $(this);
+        $("#contextmenucontainer").show(300);
+    });
+    $('.disablednode').removeClass('disablednode');
+}
+
+
+function updateScreen() {
+    $('#addroot').prop('disabled', $(".treenode").length != 0);
+    $('#lblraiz')[0].innerHTML = ' ' + (getSize() != 0 ? getRootValue() : "*") + ' ';
+    $('#tamanho')[0].innerHTML = ' ' + getSize() + ' ';
+    $('#altura')[0].innerHTML = ' ' + getTreeHeight() + ' ';
+    drawTreeLines(getRootNode());
+}
+
+
 var mokfunc, mcancfunc;
 function showModalDialog(okFunction, canceledFunction, defaultvalue, okbtntext) {
     mokfunc = okFunction;
@@ -224,25 +261,10 @@ function showModalDialog(okFunction, canceledFunction, defaultvalue, okbtntext) 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function childFactory(value, espclass) {
+    return '<li class="li_node' + (espclass != null ? (" " + espclass) : "") +
+        '"><div class="treenode disablednode">' + value + '</div><ul></ul></li>';
+}
 
 
 
