@@ -103,6 +103,7 @@ function isBlankNode(node) {
 
 
 
+
 function getSubChild(child) {
     return isBlankNode(child) ? null : getSelectorUL(child);
 }
@@ -123,6 +124,110 @@ function getAbsRightChild(node) {
 
 function getAbsLeftChild(node) {
     return getSelectorUL(getSelectorUL(node).children().first());
+}
+
+
+
+
+
+function getSubHeight(sub) {
+    sub = getSelectorUL(sub).parent();
+
+    return jQuery.makeArray(sub.find(".treenode")).reduce(function (acc, el) {
+        var l = $(el).parents().filter("li.li_node.invisible").length == 0 ? $(el).parents().filter(".li_node").length : 0;
+        return l > acc ? l : acc;
+    }, 0) - sub.parent().parents().filter(".li_node").length;
+}
+
+function getSize() {
+    return $("#treecontainer div.treenode").length - $("#treecontainer li.li_node.invisible").length;
+}
+
+function getNodeValue(node) {
+    var sbstr = getSelectorUL(node).siblings().text();
+    return sbstr.substring(0, sbstr.length - getSelectorUL(node).siblings().find(".box_avl_inside").text().length);
+}
+
+
+
+
+
+function getSubHeightOrZero(node) {
+    return node == null ? 0 : getSubHeight(node);
+}
+
+function calcAVLNodeWeight(node) {
+    node = getSelectorUL(node);
+    return getSubHeightOrZero(getRightChild(node)) - getSubHeightOrZero(getLeftChild(node));
+}
+
+
+
+
+
+
+
+
+
+
+function addAVLChild(value) {
+    if (getSize() == 0) {
+        addRoot(factoryNodesHintBox(value));
+        updateWeights($(".treeroot"));
+    }
+    else {
+        addAVLChildRecur(parseInt(value), $(".treeroot"));
+    }
+}
+
+function addAVLChildRecur(value, node) {
+    node = getSelectorUL(node);
+    toadd = (value < parseInt(getNodeValue(node)) ? getLeftChild : getRightChild)(node);
+    if (toadd != null) {
+        addAVLChildRecur(value, toadd);
+    }
+    else {
+        toadd = getSelectorUL(node.children().eq(value < parseInt(getNodeValue(node)) ? 0 : 1));
+        toadd.siblings().html(factoryNodesHintBox(value));
+        toadd.parent().removeClass("invisible");
+        toadd.html(factoryInvisibleNodes());
+        updateWeights(toadd);
+    }
+}
+
+
+
+
+function updateWeights(node) {
+    //$(".box_avl_inside").removeClass("redtext");
+    updateWeights_tail(node, true);
+    $(".treeroot").removeClass("treeroot");
+    if ($(".tree").children().length > 0) {
+        $(".tree").children().first().addClass("treeroot");
+    }
+    updateScreen();
+}
+
+function updateWeights_tail(node, balance, descent) {
+    if (node.parents().filter(".li_node").length == 0 && !node.hasClass("li_node") && !isBlankNode(node))
+        return;
+    node = getSelectorUL(node);
+    var weight = calcAVLNodeWeight(node);
+    var elem = node.siblings().find(".box_avl_inside");
+    if (balance && Math.abs(weight) >= 2) {
+        //elem.addClass("redtext");
+        balanceTree(node);
+        return;
+    }
+    var olde = elem.html();
+    elem.html(weight);
+    if (descent) {
+        updateWeights_tail(getAbsLeftChild(node), false, true);
+        updateWeights_tail(getAbsRightChild(node), false, true);
+    }
+    else {
+        updateWeights_tail(node.parent().parent(), balance);
+    }
 }
 
 
@@ -188,80 +293,6 @@ function rotateToRight(node) {
 
 
 
-function getSubHeightOrZero(node) {
-    return node == null ? 0 : getSubHeight(node);
-}
-
-function calcAVLNodeWeight(node) {
-    node = getSelectorUL(node);
-    return getSubHeightOrZero(getRightChild(node)) - getSubHeightOrZero(getLeftChild(node));
-}
-
-
-function updateWeights(node) {
-    //$(".box_avl_inside").removeClass("redtext");
-    updateWeights_tail(node, true);
-    $(".treeroot").removeClass("treeroot");
-    if ($(".tree").children().length > 0) {
-        $(".tree").children().first().addClass("treeroot");
-    }
-    updateScreen();
-}
-
-function updateWeights_tail(node, balance, descent) {
-    if (node.parents().filter(".li_node").length == 0 && !node.hasClass("li_node") && !isBlankNode(node))
-        return;
-    node = getSelectorUL(node);
-    var weight = calcAVLNodeWeight(node);
-    var elem = node.siblings().find(".box_avl_inside");
-    if (balance && Math.abs(weight) >= 2) {
-        //elem.addClass("redtext");
-        balanceTree(node);
-        return;
-    }
-    var olde = elem.html();
-    elem.html(weight);
-    if (descent) {
-        updateWeights_tail(getAbsLeftChild(node), false, true);
-        updateWeights_tail(getAbsRightChild(node), false, true);
-    }
-    else {
-        updateWeights_tail(node.parent().parent(), balance);
-    }
-}
-
-
-
-
-
-
-
-
-function addAVLChild(value) {
-    if (getSize() == 0) {
-        addRoot(factoryNodesHintBox(value));
-        updateWeights($(".treeroot"));
-    }
-    else {
-        addAVLChildRecur(parseInt(value), $(".treeroot"));
-    }
-}
-
-
-function addAVLChildRecur(value, node) {
-    node = getSelectorUL(node);
-    toadd = (value < parseInt(getNodeValue(node)) ? getLeftChild : getRightChild)(node);
-    if (toadd != null) {
-        addAVLChildRecur(value, toadd);
-    }
-    else {
-        toadd = getSelectorUL(node.children().eq(value < parseInt(getNodeValue(node)) ? 0 : 1));
-        toadd.siblings().html(factoryNodesHintBox(value));
-        toadd.parent().removeClass("invisible");
-        toadd.html(factoryInvisibleNodes());
-        updateWeights(toadd);
-    }
-}
 
 
 function treeSearch(value, node) {
@@ -302,20 +333,10 @@ function disableSearchEffects() {
     $("div.nodehighlight").removeClass("nodehighlight");
 }
 
-
-
-
-
-
-
 function enableNode() {
     $('.disablednode').removeClass('disablednode');
 }
 
-function getNodeValue(node) {
-    var sbstr = getSelectorUL(node).siblings().text();
-    return sbstr.substring(0, sbstr.length - getSelectorUL(node).siblings().find(".box_avl_inside").text().length);
-}
 
 
 
@@ -326,19 +347,16 @@ function factoryNodesHintBox(value) {
         '<div class="box_avl_inside' + (isFBVisible() ? '' : ' invisible') + '">#</div></div>';
 }
 
-
 function factoryInvisibleNodes() {
     return '<li class="li_node invisible"><div class="treenode">*</div><ul></ul></li>' +
         '<li class="li_node invisible"><div class="treenode">*</div><ul></ul></li>';
 }
-
 
 function childFactory(value, espclass) {
     return '<li class="li_node' + (espclass != null ? (" " + espclass) : "") +
         '"><div class="treenode disablednode">' + value + '</div><ul>' + factoryInvisibleNodes() +
         '</ul></li>';
 }
-
 
 
 
