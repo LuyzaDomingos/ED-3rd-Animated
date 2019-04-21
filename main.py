@@ -45,6 +45,18 @@ class AVLHandler(Handler):
     def get(self):
         self.render("avl.html", titulo = "TAD's - AVL")
 
+class FCFSHandler(Handler):
+    def get(self):
+        self.render("fcfs.html", titulo = "TAD's - First-Come-First-Served")
+
+class ShortestHandler(Handler):
+    def get(self):
+        self.render("shortest.html", titulo = "TAD's - Menor processo")
+
+class PrioridadeHandler(Handler):
+    def get(self):
+        self.render("prioridade.html", titulo = "TAD's - Maior Prioridade primeiro")
+
 class TesteHandler(Handler):
     def get(self):
         pass
@@ -60,5 +72,8 @@ app = webapp2.WSGIApplication([
     ('/fila', FilaHandler),
     ('/arvore', ArvoreHandler),
     ('/avl', AVLHandler),
+    ('/fcfs', FCFSHandler),
+    ('/shortest', ShortestHandler),
+    ('/prioridade', PrioridadeHandler),
     ('/teste', TesteHandler)
 ], debug=True)
