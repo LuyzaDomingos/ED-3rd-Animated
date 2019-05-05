@@ -3,6 +3,24 @@
 {%block principal %}
 
 <script src="/assets/js/fcfs.js"></script>
+<style type="text/css">
+	.apps {
+	    min-height: 160px;
+	    background-image: url('/assets/images/app_source.gif');
+	    background-repeat: no-repeat;
+	    background-size: 64%;
+		border-radius: 10%;
+		border: 1px solid green;
+		padding: 10px;
+	}
+	.processo {
+		width: 150px;
+	    height: 80px;
+		border-radius: 20%;
+		border: 1px solid green;
+		padding: 5px;
+		}
+</style>
 <main class="text-center bg_secundario">
 	<h3 class="tx_primario">First-Come-Firt-Served</h3>
 	<div id="content" class="col-12">
@@ -12,10 +30,40 @@
 				</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-				<img class="col-6" src="/assets/images/pacman.gif" alt="Logo da UFPB">
-				<img class="col-6" src="/assets/images/pacman2.gif" alt="Logo da UFPB">
+				<div class="row">
+					<div class="col-2"></div>
+					<div class="col-3">
+						<div class="apps text-right" id="app1">
+							APP-1
+						</div>
+					</div>
+					<div class="col-2"></div>
+					<div class="col-3">
+						<div class="apps text-right" id="app2">
+							APP-2
+						</div>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-2" style="">
+						Fila de processos
+						<div class="processo">
+							<div><span id="nome_pai">APP-1</span></div>
+							<div class="row">
+								<div class="col-1"><span id="prioridade">9</span></div>
+								<div class="col-9" style="background-color: green"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-10">
+						<img class="col-3 float-right" src="/assets/images/pacman2.gif" alt="Processador executando os Jobs">
+					</div>
+				<div class="row">
 			</div>
 		</div>
+			<hr>
 	</div>
 </main>
 
