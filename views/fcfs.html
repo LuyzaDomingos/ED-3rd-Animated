@@ -5,20 +5,22 @@
 <script src="/assets/js/fcfs.js"></script>
 <style type="text/css">
 	.apps {
-	    min-height: 160px;
+	    min-height: 130px;
 	    background-image: url('/assets/images/app_source.gif');
 	    background-repeat: no-repeat;
-	    background-size: 64%;
+	    background-size: 52%;
 		border-radius: 10%;
 		border: 1px solid green;
 		padding: 10px;
 	}
 	.processo {
+		float: right;
 		width: 150px;
 	    height: 80px;
 		border-radius: 20%;
 		border: 1px solid green;
 		padding: 5px;
+		background-color: #fefe00;
 		}
 </style>
 <main class="text-center bg_secundario">
@@ -34,7 +36,14 @@
 					<div class="col-2"></div>
 					<div class="col-3">
 						<div class="apps text-right" id="app1">
-							APP-1
+							APP-1<br>
+							<div class="processo">
+								<div><span id="nome_pai">APP-1</span></div>
+								<div class="row">
+									<div class="col-1"><span id="prioridade">9</span></div>
+									<div class="col-9" style="background-color: green"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-2"></div>
@@ -49,12 +58,7 @@
 				<div class="row">
 					<div class="col-2" style="">
 						Fila de processos
-						<div class="processo">
-							<div><span id="nome_pai">APP-1</span></div>
-							<div class="row">
-								<div class="col-1"><span id="prioridade">9</span></div>
-								<div class="col-9" style="background-color: green"></div>
-							</div>
+						<div id="proList">
 						</div>
 					</div>
 					<div class="col-10">
