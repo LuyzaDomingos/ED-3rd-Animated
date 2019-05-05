@@ -14,6 +14,7 @@
 		padding: 10px;
 	}
 	.processo {
+		display: unset;
 		float: right;
 		width: 150px;
 	    height: 80px;
@@ -21,6 +22,7 @@
 		border: 1px solid green;
 		padding: 5px;
 		background-color: #fefe00;
+		margin: 2px;
 		}
 </style>
 <main class="text-center bg_secundario">
@@ -37,13 +39,6 @@
 					<div class="col-3">
 						<div class="apps text-right" id="app1">
 							APP-1<br>
-							<div class="processo">
-								<div><span id="nome_pai">APP-1</span></div>
-								<div class="row">
-									<div class="col-1"><span id="prioridade">9</span></div>
-									<div class="col-9" style="background-color: green"></div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div class="col-2"></div>
@@ -56,8 +51,9 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col-2" style="">
-						Fila de processos
+					<div class="col-2" style="min-height: 500px">
+						<h5>Fila de processos</h5>
+						<hr>
 						<div id="proList">
 						</div>
 					</div>
