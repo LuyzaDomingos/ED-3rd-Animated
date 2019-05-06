@@ -1,25 +1,76 @@
 {% extends "index.html" %}
 
 {%block principal %}
-<script src="/assets/js/shortest.js"></script>
+
+<script src="/assets/js/prioridade.js"></script>
+<link href="/assets/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="/assets/js/bootstrap4-toggle.min.js"></script>
+<style type="text/css">
+	.apps {
+	    min-height: 130px;
+	    background-image: url('/assets/images/app_source.gif');
+	    background-repeat: no-repeat;
+	    background-size: 52%;
+		border-radius: 10%;
+		border: 1px solid green;
+		padding: 10px;
+	}
+	.processo {
+		display: unset;
+		float: right;
+		width: 150px;
+	    height: 80px;
+		border-radius: 20%;
+		border: 1px solid green;
+		padding: 5px;
+		background-color: #fefe00;
+		margin: 2px;
+		}
+</style>
 <main class="text-center bg_secundario">
 	<h3 class="tx_primario">Maior prioridade primeiro</h3>
 	<div id="content" class="col-12">
 		<div class="row">
-			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+			<div id="detalhes" class="col-lg-2 col-sm-12 border">
+				<hr>
 				<div id="obs">
-					<p>Pressione o botão "Adicionar" abaixo para inicializar a raiz da árvore.</p>
-					<p>Em seguida, pressione os nós diretamente para realizar operações.</p>
+					<input id="btn_start" type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Iniciar simulação" data-off="<i class='fa fa-pause'></i> Parar simulação" data-onstyle="primary" data-offstyle="danger">
 				</div><hr>
-				<div id="atributos">
-					<h5>Detalhes</h5>
-					</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
-                
-
+				<div class="row">
+					<div class="col-2"></div>
+					<div class="col-3">
+						<div class="apps text-right" id="app1">
+							<h4>APP-1</h4><br>
+						</div>
+					</div>
+					<div class="col-2"></div>
+					<div class="col-3">
+						<div class="apps text-right" id="app2">
+							<h4>APP-2</h4><br>
+						</div>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-2" style="min-height: 500px">
+						<h5>Fila de processos</h5>
+						<hr>
+						<div id="proList">
+						</div>
+					</div>
+					<div class="col-10">
+						<img id="processador" class="col-3 float-right" src="/assets/images/pacman2.gif" alt="Processador executando os Jobs">
+						<div class="float-right">
+							<br><h4>Processador</h4>
+						</div>
+					</div>
+				<div class="row">
 			</div>
 		</div>
+			<hr>
 	</div>
 </main>
 
