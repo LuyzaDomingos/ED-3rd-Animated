@@ -1,38 +1,53 @@
 $(document).ready(function () {
+    var interval
     var maxListSize = 4;
     var listaE = new Lista();
     var raiz;
     var divID = 0;
     var processadorPai;
-    var origem;
     var procBusy = false;
-    setInterval(function(){
-        if (!listaE.vazia() && !procBusy){
-            procBusy=true;
-            var removido = listaE.remover(1);
-            $('#pro'+removido.id).animate({ top: 0, left: 1000 }, 1500).delay(3000).hide(800, function(){
-                procBusy=false;
-                console.log(procBusy);
-            });
+    $('#btn_start').change(function() {
+        if (!$('#btn_start').prop('checked')){
+            interval = setInterval(function(){
+                if (!listaE.vazia() && !procBusy){
+                    procBusy=true;
+                    var passo = 28;
+                    var removido = listaE.remover(1);
+                    var fim = $('#processador').offset();
+                    raiz = $('#pro'+removido.id).offset();
+                    $('#pro'+removido.id).animate({left: fim.left-raiz.left }, 1400)
+                                        .delay(200)
+                                        .animate({left: fim.left-raiz.left+passo }, 200)
+                                        .delay(200)
+                                        .animate({left: fim.left-raiz.left+2*passo }, 200)
+                                        .delay(2000)
+                                        .hide(400, function(){
+                                            procBusy=false;
+                                            console.log(procBusy);
+                    });
+                }
+                if (listaE.getTamanho()<maxListSize) {
+                    var seg = Date.now()%10;
+                    processadorPai = FazProcesso(seg);
+                    listaE.inserir((listaE.getTamanho()+1), "O conteudo não importa nesse caso", divID);
+                    $('#proList').append('<div id="pro'+divID+'"class="processo">'+
+                                            '<div><span id="nome_pai">APP-'+processadorPai+'</span></div>'+
+                                            '<div class="row">'+
+                                                '<div class="col-1"><span id="prioridade">'+seg+'</span></div>'+
+                                                '<div class="col-'+((seg%5)*2+1)+'" style="background-color: green"></div>'+
+                                            '</div>'+
+                                        '</div>');
+                    raiz = $('#app'+processadorPai).offset();
+                    $('#pro'+divID).offset({ top: raiz.top+40, left: raiz.left+80});
+                    $('#pro'+divID).delay(1000).animate({ top: 0, left: 0 }, (processadorPai==1 ? 1000 : 1500), function () {
+                        divID++;
+                    });
+                }
+            }, 2600);
+        }else{
+            clearInterval(interval);
         }
-        if (listaE.getTamanho()<maxListSize) {
-            var seg = Date.now()%10;
-            processadorPai = FazProcesso(seg);
-            listaE.inserir((listaE.getTamanho()+1), "O conteudo não importa nesse caso", divID);
-            $('#proList').append('<div id="pro'+divID+'"class="processo">'+
-                                    '<div><span id="nome_pai">APP-'+processadorPai+'</span></div>'+
-                                    '<div class="row">'+
-                                        '<div class="col-1"><span id="prioridade">'+seg+'</span></div>'+
-                                        '<div class="col-'+((seg%5)*2+1)+'" style="background-color: green"></div>'+
-                                    '</div>'+
-                                '</div>');
-            raiz = $('#app'+processadorPai).offset();
-            $('#pro'+divID).offset({ top: raiz.top+40, left: raiz.left+80});
-            $('#pro'+divID).delay(1000).animate({ top: 0, left: 0 }, (processadorPai==1 ? 1000 : 1500), function () {
-                divID++;
-            });
-        }
-    }, 2600);
+    });
 });
 
 var sorteio = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];

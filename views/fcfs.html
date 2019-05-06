@@ -3,6 +3,8 @@
 {%block principal %}
 
 <script src="/assets/js/fcfs.js"></script>
+<link href="/assets/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="/assets/js/bootstrap4-toggle.min.js"></script>
 <style type="text/css">
 	.apps {
 	    min-height: 130px;
@@ -29,8 +31,10 @@
 	<h3 class="tx_primario">First-Come-Firt-Served</h3>
 	<div id="content" class="col-12">
 		<div class="row">
-			<div id="detalhes" class="col-lg-2 col-sm-12 border"><hr>
+			<div id="detalhes" class="col-lg-2 col-sm-12 border">
+				<hr>
 				<div id="obs">
+					<input id="btn_start" type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Iniciar simulação" data-off="<i class='fa fa-pause'></i> Parar simulação" data-onstyle="primary" data-offstyle="danger">
 				</div><hr>
 			</div>
 			<div id="apresentacao" class="col-lg-10 col-sm-12 border">
@@ -38,13 +42,13 @@
 					<div class="col-2"></div>
 					<div class="col-3">
 						<div class="apps text-right" id="app1">
-							APP-1<br>
+							<h4>APP-1</h4><br>
 						</div>
 					</div>
 					<div class="col-2"></div>
 					<div class="col-3">
 						<div class="apps text-right" id="app2">
-							APP-2
+							<h4>APP-2</h4><br>
 						</div>
 					</div>
 					<div class="col-2"></div>
@@ -58,7 +62,10 @@
 						</div>
 					</div>
 					<div class="col-10">
-						<img class="col-3 float-right" src="/assets/images/pacman2.gif" alt="Processador executando os Jobs">
+						<img id="processador" class="col-3 float-right" src="/assets/images/pacman2.gif" alt="Processador executando os Jobs">
+						<div class="float-right">
+							<br><h4>Processador</h4>
+						</div>
 					</div>
 				<div class="row">
 			</div>
